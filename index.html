@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Johnnie Assistant - 专业情感策略与对话分析平台</title>
+    <title>Johnnie Assistant - 高情商沟通策略与即时战术平台</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -228,7 +228,7 @@
             </div>
         </section>
 
-        <!-- Tab 3: 跨天對話戰情日誌 -->
+        <!-- Tab 3: 跨天對話戰情日誌 (支援新增與刪除功能) -->
         <section id="section-analyzer" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-4 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
                 <div class="flex items-center justify-between border-b border-slate-200 pb-3">
@@ -255,13 +255,19 @@
             <div class="lg:col-span-8 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col overflow-y-auto custom-scrollbar max-h-[640px] shadow-sm space-y-5">
                 <div class="flex items-center justify-between border-b border-slate-200 pb-3">
                     <h3 id="currentLogTitle" class="text-sm font-bold text-slate-800">Day 1 對話紀錄與單日診斷</h3>
-                    <button onclick="saveCurrentDayLog()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded-xl font-medium transition flex items-center space-x-1">
-                        <i data-lucide="save" class="w-3.5 h-3.5"></i>
-                        <span>保存今天診斷</span>
-                    </button>
+                    <div class="flex space-x-2">
+                        <button onclick="deleteCurrentDayLog()" class="bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 text-xs px-3 py-2 rounded-xl font-medium transition flex items-center space-x-1">
+                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                            <span>刪除今天日誌</span>
+                        </button>
+                        <button onclick="saveCurrentDayLog()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded-xl font-medium transition flex items-center space-x-1 shadow-md shadow-blue-500/20">
+                            <i data-lucide="save" class="w-3.5 h-3.5"></i>
+                            <span>保存今天診斷</span>
+                        </button>
+                    </div>
                 </div>
 
-                <textarea id="analyzerInputLog" rows="7" placeholder="貼上今天的雙方對話紀錄..."
+                <textarea id="analyzerInputLog" rows="7" placeholder="貼上或自動導入今天的對話紀錄（例如：我方: ... 對方: ...）"
                           class="w-full bg-slate-50 border border-slate-300 rounded-2xl p-4 text-xs text-slate-800 focus:border-blue-600 focus:outline-none custom-scrollbar"></textarea>
 
                 <div id="analyzerReport" class="space-y-4">
@@ -270,7 +276,7 @@
             </div>
         </section>
 
-        <!-- Tab 4: 每日戀愛任務與打卡 (新功能) -->
+        <!-- Tab 4: 每日戀愛任務 -->
         <section id="section-dailyquest" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
                 <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
@@ -278,7 +284,7 @@
                         <i data-lucide="check-square" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <h2 class="text-sm font-bold text-slate-900">每日高價值框架任務</h2>
+                        <h2 class="text-sm font-bold text-slate-900">每日高价值框架任务</h2>
                         <p class="text-xs text-slate-500">精準控制心態，防止死缠烂打与患得患失</p>
                     </div>
                 </div>
@@ -304,19 +310,11 @@
                         <span class="font-bold text-emerald-900 block text-sm">💡 為什麼每日打卡很重要？</span>
                         <p>追求心儀對象最忌諱「情緒失控」與「過度暴露需求感」。每天完成規定的微任務，能強迫自己保持高價值男性/女性的冷靜與節奏感。</p>
                     </div>
-                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-2">
-                        <span class="font-bold text-slate-800">🎯 高價值框架 3 大鐵律：</span>
-                        <ul class="list-disc list-inside space-y-1 text-slate-600">
-                            <li><b>控制回覆頻率：</b>絕不秒回訊息，保持自己的生活重心與神秘感。</li>
-                            <li><b>不提供廉價情緒：</b>不刻意討好、不過度稱讚、不當隨叫隨到的免費情緒垃圾桶。</li>
-                            <li><b>隨時準備撤退：</b>對方的冷淡是正常的，保持「隨時能轉身離開」的強大心理底氣。</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Tab 5: 反向 PUA 防禦護盾 (新功能) -->
+        <!-- Tab 5: 反向 PUA 防禦護盾 -->
         <section id="section-antipua" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
                 <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
@@ -947,15 +945,25 @@
             lucide.createIcons();
         }
 
-        // Daily Logs
+        // --- Daily Logs Functions (With Delete Mechanism) ---
         function renderLogDaysList() {
             const container = document.getElementById('logDaysList');
+            if (!dailyLogs || dailyLogs.length === 0) {
+                container.innerHTML = `<div class="p-3 bg-slate-50 text-slate-400 text-xs text-center rounded-xl">尚無日誌，點擊上方「新增天數」建立！</div>`;
+                return;
+            }
             container.innerHTML = dailyLogs.map(item => `
                 <div onclick="selectLogDay(${item.dayIndex})" class="p-3 rounded-xl border transition cursor-pointer flex justify-between items-center ${item.dayIndex === currentDayIndex ? 'bg-indigo-50 border-indigo-300 font-bold text-indigo-900' : 'bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700'}">
                     <span class="text-xs">Day ${item.dayIndex} 戰情日誌</span>
-                    <span class="font-mono text-xs text-blue-600">${item.score ? item.score.toFixed(1) + '%' : '未評估'}</span>
+                    <div class="flex items-center space-x-2">
+                        <span class="font-mono text-xs text-blue-600">${item.score ? item.score.toFixed(1) + '%' : '未評估'}</span>
+                        <button onclick="event.stopPropagation(); deleteLogDayByIndex(${item.dayIndex})" class="text-slate-400 hover:text-rose-600 p-1 transition" title="刪除此天">
+                            <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
                 </div>
             `).join('');
+            lucide.createIcons();
         }
 
         function selectLogDay(dayIdx) {
@@ -976,17 +984,47 @@
             const nextIdx = dailyLogs.length > 0 ? dailyLogs[dailyLogs.length - 1].dayIndex + 1 : 1;
             dailyLogs.push({ dayIndex: nextIdx, text: '', reportHtml: '', score: 0 });
             selectLogDay(nextIdx);
-            if (currentUser) db.collection('users').doc(currentUser.uid).set({ dailyLogs: dailyLogs }, { merge: true });
+            syncLogsToCloud();
+        }
+
+        function deleteCurrentDayLog() {
+            deleteLogDayByIndex(currentDayIndex);
+        }
+
+        function deleteLogDayByIndex(dayIdx) {
+            if (!confirm(`確定要刪除 Day ${dayIdx} 的戰情日誌嗎？刪除後無法復原。`)) return;
+
+            dailyLogs = dailyLogs.filter(d => d.dayIndex !== dayIdx);
+            
+            // Re-index remaining days to maintain continuous 1, 2, 3...
+            dailyLogs.forEach((item, index) => {
+                item.dayIndex = index + 1;
+            });
+
+            if (dailyLogs.length === 0) {
+                dailyLogs = [{ dayIndex: 1, text: '', reportHtml: '', score: 0 }];
+            }
+
+            currentDayIndex = Math.min(currentDayIndex, dailyLogs.length);
+            renderLogDaysList();
+            loadDayLog(currentDayIndex);
+            syncLogsToCloud();
+        }
+
+        function syncLogsToCloud() {
+            if (currentUser) {
+                db.collection('users').doc(currentUser.uid).set({ dailyLogs: dailyLogs }, { merge: true });
+            }
         }
 
         async function saveCurrentDayLog() {
             const logText = document.getElementById('analyzerInputLog').value.trim();
             const reportBox = document.getElementById('analyzerReport');
-            if (!logText) return alert('請先輸入今天的對話紀錄！');
+            if (!logText) return alert('請先輸入或導入今天的對話紀錄！');
 
             reportBox.innerHTML = `<div class="text-center py-12 text-indigo-600 text-xs font-semibold animate-pulse">Johnnie 正在剖析 Day ${currentDayIndex} 戰情...</div>`;
 
-            const prompt = `深度诊断 Day ${currentDayIndex} 对话：\n"""\n${logText}\n"""\n严格输出 JSON：\n{"score":75.5,"subtext":"...","greenFlags":["..."],"redFlags":["..."],"strategy":"..."}`;
+            const prompt = `深度诊断 Day ${currentDayIndex} 对话：\n"""\n${logText}\n"""\n请特别区分「我方」与「对方」的发言心理攻防。严格输出 JSON：\n{"score":75.5,"subtext":"...","greenFlags":["..."],"redFlags":["..."],"strategy":"..."}`;
 
             try {
                 const resText = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
@@ -1000,11 +1038,11 @@
                         <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden"><div class="bg-blue-600 h-2 rounded-full" style="width: ${res.score}%"></div></div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                        <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-xl space-y-1"><h4 class="font-bold text-emerald-800">Green Flags</h4><ul class="text-emerald-700 list-disc list-inside">${res.greenFlags.map(f=>`<li>${f}</li>`).join('')}</ul></div>
-                        <div class="bg-rose-50 border border-rose-200 p-3 rounded-xl space-y-1"><h4 class="font-bold text-rose-800">Red Flags</h4><ul class="text-rose-700 list-disc list-inside">${res.redFlags.map(f=>`<li>${f}</li>`).join('')}</ul></div>
+                        <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-xl space-y-1"><h4 class="font-bold text-emerald-800">Green Flags (加分項)</h4><ul class="text-emerald-700 list-disc list-inside">${res.greenFlags.map(f=>`<li>${f}</li>`).join('')}</ul></div>
+                        <div class="bg-rose-50 border border-rose-200 p-3 rounded-xl space-y-1"><h4 class="font-bold text-rose-800">Red Flags (扣分/警戒項)</h4><ul class="text-rose-700 list-disc list-inside">${res.redFlags.map(f=>`<li>${f}</li>`).join('')}</ul></div>
                     </div>
-                    <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl space-y-1 text-xs"><h4 class="font-bold text-slate-700">潛台詞解讀</h4><p class="text-slate-600">${res.subtext}</p></div>
-                    <div class="bg-indigo-50 border border-indigo-200 p-3 rounded-xl space-y-1 text-xs"><h4 class="font-bold text-indigo-900">Johnnie 戰術指南</h4><p class="text-indigo-800">${res.strategy}</p></div>
+                    <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl space-y-1 text-xs"><h4 class="font-bold text-slate-700">對方真實潛台詞解讀</h4><p class="text-slate-600">${res.subtext}</p></div>
+                    <div class="bg-indigo-50 border border-indigo-200 p-3 rounded-xl space-y-1 text-xs"><h4 class="font-bold text-indigo-900">Johnnie 戰術應對指南</h4><p class="text-indigo-800">${res.strategy}</p></div>
                 `;
 
                 reportBox.innerHTML = html;
@@ -1020,7 +1058,7 @@
                 }
 
                 renderLogDaysList();
-                if (currentUser) db.collection('users').doc(currentUser.uid).set({ dailyLogs: dailyLogs }, { merge: true });
+                syncLogsToCloud();
                 alert(`Day ${currentDayIndex} 診斷已保存至雲端！`);
 
             } catch (err) {
@@ -1050,7 +1088,7 @@
             }
         }
 
-        // New Feature 1: Daily Quests & Check-in
+        // Feature: Daily Quests
         async function generateDailyQuests() {
             const box = document.getElementById('questsContainer');
             box.innerHTML = `<div class="text-emerald-600 text-xs font-semibold animate-pulse py-8 text-center">Johnnie 正在根據當前戰情生成今日任務...</div>`;
@@ -1102,7 +1140,7 @@
             }
         }
 
-        // New Feature 2: Anti-PUA Shield
+        // Feature: Anti-PUA Shield
         async function analyzePUAMsg() {
             const msg = document.getElementById('puaMsgInput').value.trim();
             const box = document.getElementById('puaResult');
@@ -1112,18 +1150,9 @@
 
             const prompt = `對方傳來的可能打壓/試探/情緒勒索訊息：「${msg}」。
 請拆解：
-1. 對方的真實潛台詞與心理動機（是測試底線、自卑打壓還是情緒勒索？）
-2. 提供 3 種反擊方案：
-   - A. 四兩撥千斤 / 幽默化解
-   - B. 高價值邊界反擊（維護尊嚴）
-   - C. 冷淡拉開距離（降溫策略）
-嚴格輸出 JSON 格式，無 markdown：
-{
-  "intent": "潛台詞與心理動機剖析...",
-  "optionA": "幽默化解...",
-  "optionB": "邊界反擊...",
-  "optionC": "冷淡降溫..."
-}`;
+1. 對方的真實潛台詞與心理動機
+2. 提供 3 種反擊方案（A.幽默化解 B.高價值邊界反擊 C.冷淡拉開距離）。嚴格輸出 JSON 格式：
+{"intent":"...","optionA":"...","optionB":"...","optionC":"..."}`;
 
             try {
                 const reply = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
@@ -1166,7 +1195,7 @@
             if (!lastMsg) return alert('請填寫僵局情境！');
             box.innerHTML = `<div class="text-amber-500 text-xs animate-pulse">正在生成打破僵局策略...</div>`;
 
-            const prompt = `僵局情境：「${lastMsg}」，對方特徵：「${hobby || '無'}」。請生成 3 種破冰方案：1.無痛重啟法 2.開放式好奇心提問 3.推拉式幽默化解。嚴格輸出 JSON 格式：{"hook":"...","curiosity":"...","pushpull":"..."}`;
+            const prompt = `僵局情境：「${lastMsg}」，對方特徵：「${hobby || '無'}」。請生成 3 種破冰方案。嚴格輸出 JSON 格式：{"hook":"...","curiosity":"...","pushpull":"..."}`;
 
             try {
                 const reply = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
@@ -1188,7 +1217,7 @@
             if (!story) return alert('請填寫 Story 描述！');
             box.innerHTML = `<div class="text-pink-600 text-xs animate-pulse">Johnnie 正在規劃社群互動...</div>`;
 
-            const prompt = `對方 Story 描述：「${story}」。請提供：1.高情商回覆 Story 話術（絕不當舔狗） 2.引誘對方回覆你的自發發文策略。嚴格輸出 JSON：{"reply":"...","postStrategy":"..."}`;
+            const prompt = `對方 Story 描述：「${story}」。請提供高情商回覆與誘餌策略。嚴格輸出 JSON：{"reply":"...","postStrategy":"..."}`;
 
             try {
                 const reply = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
@@ -1209,7 +1238,7 @@
             if (!cold) return alert('請填寫冷淡狀況！');
             box.innerHTML = `<div class="text-cyan-600 text-xs animate-pulse">正在評估黃金冷卻時間...</div>`;
 
-            const prompt = `冷淡狀況：「${cold}」。請評估：1.建議冷凍天數 2.最佳重啟破冰切入點與第一句話。嚴格輸出 JSON：{"cooldownDays":"3-5天","strategy":"..."}`;
+            const prompt = `冷淡狀況：「${cold}」。請評估冷卻天數與重啟第一句話。嚴格輸出 JSON：{"cooldownDays":"3-5天","strategy":"..."}`;
 
             try {
                 const reply = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
