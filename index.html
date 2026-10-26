@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Johnnie Assistant - 高情商沟通策略与即时战情平台</title>
+    <title>Johnnie Assistant - 专业情感策略与对话分析平台</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -74,6 +74,14 @@
             <button onclick="switchTab('analyzer')" id="tab-analyzer" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
                 <i data-lucide="calendar" class="w-4 h-4 text-indigo-600"></i>
                 <span>跨天对话战情日誌</span>
+            </button>
+            <button onclick="switchTab('dailyquest')" id="tab-dailyquest" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
+                <i data-lucide="check-square" class="w-4 h-4 text-emerald-600"></i>
+                <span>每日恋爱任务</span>
+            </button>
+            <button onclick="switchTab('antipua')" id="tab-antipua" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
+                <i data-lucide="shield" class="w-4 h-4 text-purple-600"></i>
+                <span>反向 PUA 护盾</span>
             </button>
             <button onclick="switchTab('icebreaker')" id="tab-icebreaker" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
                 <i data-lucide="zap" class="w-4 h-4 text-amber-500"></i>
@@ -220,7 +228,7 @@
             </div>
         </section>
 
-        <!-- Tab 3: 跨天對話戰情日誌 (按天數保存與全面復盤) -->
+        <!-- Tab 3: 跨天對話戰情日誌 -->
         <section id="section-analyzer" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-4 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
                 <div class="flex items-center justify-between border-b border-slate-200 pb-3">
@@ -234,7 +242,6 @@
                     </button>
                 </div>
 
-                <!-- Days List Container -->
                 <div id="logDaysList" class="space-y-2 flex-1 overflow-y-auto custom-scrollbar max-h-[480px]">
                     <div class="p-3 bg-slate-50 text-slate-400 text-xs text-center rounded-xl">載入日誌中...</div>
                 </div>
@@ -263,7 +270,86 @@
             </div>
         </section>
 
-        <!-- Tab 4: 僵局破冰救援 -->
+        <!-- Tab 4: 每日戀愛任務與打卡 (新功能) -->
+        <section id="section-dailyquest" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
+                <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+                    <div class="p-2.5 bg-emerald-600 text-white rounded-xl shadow-md">
+                        <i data-lucide="check-square" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-sm font-bold text-slate-900">每日高價值框架任務</h2>
+                        <p class="text-xs text-slate-500">精準控制心態，防止死缠烂打与患得患失</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <button onclick="generateDailyQuests()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl text-xs font-semibold shadow-md transition flex items-center justify-center space-x-2">
+                        <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                        <span>生成今日 3 大心態策略任務</span>
+                    </button>
+                </div>
+
+                <div id="questsContainer" class="space-y-3 flex-1 overflow-y-auto custom-scrollbar">
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl text-center text-xs text-slate-400">
+                        點擊上方按鈕生成今日專屬心態任務
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col shadow-sm">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">任務執行與框架守則</h3>
+                <div class="space-y-4 text-xs leading-relaxed text-slate-700">
+                    <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl space-y-2">
+                        <span class="font-bold text-emerald-900 block text-sm">💡 為什麼每日打卡很重要？</span>
+                        <p>追求心儀對象最忌諱「情緒失控」與「過度暴露需求感」。每天完成規定的微任務，能強迫自己保持高價值男性/女性的冷靜與節奏感。</p>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-2">
+                        <span class="font-bold text-slate-800">🎯 高價值框架 3 大鐵律：</span>
+                        <ul class="list-disc list-inside space-y-1 text-slate-600">
+                            <li><b>控制回覆頻率：</b>絕不秒回訊息，保持自己的生活重心與神秘感。</li>
+                            <li><b>不提供廉價情緒：</b>不刻意討好、不過度稱讚、不當隨叫隨到的免費情緒垃圾桶。</li>
+                            <li><b>隨時準備撤退：</b>對方的冷淡是正常的，保持「隨時能轉身離開」的強大心理底氣。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 5: 反向 PUA 防禦護盾 (新功能) -->
+        <section id="section-antipua" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
+                <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+                    <div class="p-2.5 bg-purple-600 text-white rounded-xl shadow-md">
+                        <i data-lucide="shield" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-sm font-bold text-slate-900">反向 PUA 与打压防御护盾</h2>
+                        <p class="text-xs text-slate-500">拆解打压、试探与情绪勒索，高价值回击</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3 text-sm">
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-1">对方传来的打压/试探/怪里怪气的话：</label>
+                        <textarea id="puaMsgInput" rows="4" placeholder="例如：「我觉得你人蛮好的，但好像有点不太成熟耶...」" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-xs text-slate-800 focus:border-purple-600 focus:outline-none"></textarea>
+                    </div>
+                    <button onclick="analyzePUAMsg()" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3.5 rounded-2xl text-xs font-semibold shadow-md transition flex items-center justify-center space-x-2">
+                        <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                        <span>拆解意图并生成高价值防守话术</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col overflow-y-auto custom-scrollbar max-h-[640px] shadow-sm">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">防禦反擊戰略報告</h3>
+                <div id="puaResult" class="flex-1 flex flex-col justify-center items-center text-slate-400 text-sm py-24 text-center">
+                    貼上對方可疑或打壓的訊息後點擊拆解
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 6: 僵局破冰救援 -->
         <section id="section-icebreaker" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
                 <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
@@ -271,8 +357,8 @@
                         <i data-lucide="zap" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <h2 class="text-sm font-bold text-slate-900">聊天僵局救援與破冰器</h2>
-                        <p class="text-xs text-slate-500">專治「嗯嗯、哈哈、已讀」乾掉對話</p>
+                        <h2 class="text-sm font-bold text-slate-900">聊天僵局救援与破冰器</h2>
+                        <p class="text-xs text-slate-500">专治「嗯嗯、哈哈、已读」乾掉对话</p>
                     </div>
                 </div>
 
@@ -300,7 +386,7 @@
             </div>
         </section>
 
-        <!-- Tab 5: IG/社群互動教練 -->
+        <!-- Tab 7: IG/社群互動教練 -->
         <section id="section-igcoach" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
                 <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
@@ -308,7 +394,7 @@
                         <i data-lucide="instagram" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <h2 class="text-sm font-bold text-slate-900">IG 限時動態互動教練</h2>
+                        <h2 class="text-sm font-bold text-slate-900">IG 限时动态互动教练</h2>
                         <p class="text-xs text-slate-500">回覆 Story 絕不當舔狗，打造吸睛動態</p>
                     </div>
                 </div>
@@ -316,7 +402,7 @@
                 <div class="space-y-3 text-sm">
                     <div>
                         <label class="block text-slate-700 font-semibold mb-1">對方發的 Story / 貼文內容或圖片描述：</label>
-                        <textarea id="igStoryDesc" rows="3" placeholder="例如：她發了一張去某家咖啡廳喝咖啡的照片，寫著「終於吃到這家了好幸福」" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs focus:border-blue-600 focus:outline-none"></textarea>
+                        <textarea id="igStoryDesc" rows="3" placeholder="例如：她發了一張去某家咖啡廳喝咖啡的照片..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs focus:border-blue-600 focus:outline-none"></textarea>
                     </div>
                     <button onclick="generateIGCoachAdvice()" class="w-full bg-pink-600 hover:bg-pink-700 text-white py-3.5 rounded-2xl text-xs font-semibold shadow-md transition flex items-center justify-center space-x-2">
                         <i data-lucide="sparkles" class="w-4 h-4"></i>
@@ -333,7 +419,7 @@
             </div>
         </section>
 
-        <!-- Tab 6: 冷淡期/已讀重啟沙盤 -->
+        <!-- Tab 8: 冷淡期/已讀重啟沙盤 -->
         <section id="section-coldrecovery" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
                 <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
@@ -341,7 +427,7 @@
                         <i data-lucide="snowflake" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <h2 class="text-sm font-bold text-slate-900">冷淡期 / 已讀不回重啟沙盤</h2>
+                        <h2 class="text-sm font-bold text-slate-900">冷淡期 / 已读不回重启沙盘</h2>
                         <p class="text-xs text-slate-500">計算黃金冷卻時間與重啟切入點</p>
                     </div>
                 </div>
@@ -349,7 +435,7 @@
                 <div class="space-y-3 text-sm">
                     <div>
                         <label class="block text-slate-700 font-semibold mb-1">冷淡前的最後互動與狀況：</label>
-                        <textarea id="coldLastInteraction" rows="3" placeholder="例如：前幾天聊得很熱絡，但我昨天邀約她後，她回「最近好忙」之後就讀很慢..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs focus:border-blue-600 focus:outline-none"></textarea>
+                        <textarea id="coldLastInteraction" rows="3" placeholder="例如：前幾天聊得很熱絡，但我昨天邀約她後..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs focus:border-blue-600 focus:outline-none"></textarea>
                     </div>
                     <button onclick="evaluateColdRecovery()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-3.5 rounded-2xl text-xs font-semibold shadow-md transition flex items-center justify-center space-x-2">
                         <i data-lucide="clock" class="w-4 h-4"></i>
@@ -366,7 +452,7 @@
             </div>
         </section>
 
-        <!-- Tab 7: AI 記憶與側寫 -->
+        <!-- Tab 9: AI 記憶與側寫 -->
         <section id="section-memory" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
                 <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
@@ -407,7 +493,7 @@
             </div>
         </section>
 
-        <!-- Tab 8: 多维度气场回复器 -->
+        <!-- Tab 10: 多维度气场回复器 -->
         <section id="section-reply" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-5 shadow-sm">
                 <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center space-x-2">
@@ -462,7 +548,7 @@
             </div>
         </section>
 
-        <!-- Tab 9: 深夜暈船急救站 SOS -->
+        <!-- Tab 11: 深夜暈船急救站 SOS -->
         <section id="section-detox" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-rose-50/50 border border-rose-200 rounded-2xl p-5 flex flex-col space-y-5 shadow-sm">
                 <div class="flex items-center space-x-3 border-b border-rose-200 pb-4">
@@ -606,6 +692,7 @@
             { dayIndex: 1, text: '', reportHtml: '', score: 0 }
         ];
         let currentDayIndex = 1;
+        let dailyQuestsList = [];
 
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
@@ -721,6 +808,10 @@
                         loadDayLog(currentDayIndex);
                     } else {
                         renderLogDaysList();
+                    }
+                    if (data.dailyQuestsList) {
+                        dailyQuestsList = data.dailyQuestsList;
+                        renderDailyQuests();
                     }
                 }
             } catch (err) { console.error("加载云端数据失败:", err); }
@@ -856,7 +947,7 @@
             lucide.createIcons();
         }
 
-        // Daily Logs Functions
+        // Daily Logs
         function renderLogDaysList() {
             const container = document.getElementById('logDaysList');
             container.innerHTML = dailyLogs.map(item => `
@@ -959,7 +1050,115 @@
             }
         }
 
-        // New Feature 1: Icebreaker
+        // New Feature 1: Daily Quests & Check-in
+        async function generateDailyQuests() {
+            const box = document.getElementById('questsContainer');
+            box.innerHTML = `<div class="text-emerald-600 text-xs font-semibold animate-pulse py-8 text-center">Johnnie 正在根據當前戰情生成今日任務...</div>`;
+
+            const prompt = `目前好感度：${currentScore}%。已掌握對方特徵：${JSON.stringify(memoryTraits)}。
+請生成 3 個今日高價值心態與行為微任務，協助用戶維持主導權與吸引力。
+嚴格輸出 JSON 陣列格式，無 markdown：
+[
+  {"id": 1, "title": "任務名稱...", "desc": "任務具體行動指南...", "done": false},
+  {"id": 2, "title": "任務名稱...", "desc": "任務具體行動指南...", "done": false},
+  {"id": 3, "title": "任務名稱...", "desc": "任務具體行動指南...", "done": false}
+]`;
+
+            try {
+                const reply = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
+                dailyQuestsList = JSON.parse(reply.replace(/```json/g, '').replace(/```/g, '').trim());
+                renderDailyQuests();
+                if (currentUser) db.collection('users').doc(currentUser.uid).set({ dailyQuestsList: dailyQuestsList }, { merge: true });
+            } catch (err) {
+                box.innerHTML = `<div class="p-3 bg-rose-50 text-rose-600 text-xs rounded-xl">生成任務失敗: ${err.message}</div>`;
+            }
+        }
+
+        function renderDailyQuests() {
+            const box = document.getElementById('questsContainer');
+            if (!dailyQuestsList || dailyQuestsList.length === 0) {
+                box.innerHTML = `<div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl text-center text-xs text-slate-400">點擊上方按鈕生成今日專屬心態任務</div>`;
+                return;
+            }
+            box.innerHTML = dailyQuestsList.map(q => `
+                <div class="p-4 rounded-2xl border transition ${q.done ? 'bg-emerald-50/60 border-emerald-200 opacity-75' : 'bg-slate-50 border-slate-200'} space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-xs ${q.done ? 'line-through text-emerald-800' : 'text-slate-800'}">${q.title}</span>
+                        <button onclick="toggleQuestDone(${q.id})" class="text-xs px-2.5 py-1 rounded-lg font-semibold transition ${q.done ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-700 hover:bg-emerald-500 hover:text-white'}">
+                            ${q.done ? '✓ 已完成打卡' : '完成打卡'}
+                        </button>
+                    </div>
+                    <p class="text-[11px] text-slate-600 leading-relaxed">${q.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        function toggleQuestDone(id) {
+            const q = dailyQuestsList.find(item => item.id === id);
+            if (q) {
+                q.done = !q.done;
+                renderDailyQuests();
+                if (currentUser) db.collection('users').doc(currentUser.uid).set({ dailyQuestsList: dailyQuestsList }, { merge: true });
+            }
+        }
+
+        // New Feature 2: Anti-PUA Shield
+        async function analyzePUAMsg() {
+            const msg = document.getElementById('puaMsgInput').value.trim();
+            const box = document.getElementById('puaResult');
+            if (!msg) return alert('請先輸入可疑或打壓訊息！');
+
+            box.innerHTML = `<div class="text-purple-600 text-xs font-semibold animate-pulse py-20 text-center">Johnnie 正在拆解對方的打壓潛台詞...</div>`;
+
+            const prompt = `對方傳來的可能打壓/試探/情緒勒索訊息：「${msg}」。
+請拆解：
+1. 對方的真實潛台詞與心理動機（是測試底線、自卑打壓還是情緒勒索？）
+2. 提供 3 種反擊方案：
+   - A. 四兩撥千斤 / 幽默化解
+   - B. 高價值邊界反擊（維護尊嚴）
+   - C. 冷淡拉開距離（降溫策略）
+嚴格輸出 JSON 格式，無 markdown：
+{
+  "intent": "潛台詞與心理動機剖析...",
+  "optionA": "幽默化解...",
+  "optionB": "邊界反擊...",
+  "optionC": "冷淡降溫..."
+}`;
+
+            try {
+                const reply = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
+                const res = JSON.parse(reply.replace(/```json/g, '').replace(/```/g, '').trim());
+
+                box.innerHTML = `
+                    <div class="w-full space-y-3 text-xs text-left">
+                        <div class="bg-purple-50 border border-purple-200 p-4 rounded-2xl space-y-1">
+                            <span class="font-bold text-purple-900 block text-xs flex items-center space-x-1">
+                                <i data-lucide="eye" class="w-4 h-4 text-purple-600"></i>
+                                <span>🎯 對方真實心理動機剖析</span>
+                            </span>
+                            <p class="text-slate-700 leading-relaxed">${res.intent}</p>
+                        </div>
+                        <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-1">
+                            <span class="font-bold text-slate-800 block text-xs">方案 A：四兩撥千斤 / 幽默化解</span>
+                            <p class="text-slate-600">${res.optionA}</p>
+                        </div>
+                        <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl space-y-1">
+                            <span class="font-bold text-blue-900 block text-xs">方案 B：高價值邊界反擊（維護尊嚴）</span>
+                            <p class="text-blue-800">${res.optionB}</p>
+                        </div>
+                        <div class="bg-rose-50 border border-rose-200 p-4 rounded-2xl space-y-1">
+                            <span class="font-bold text-rose-900 block text-xs">方案 C：冷淡拉開距離（降溫策略）</span>
+                            <p class="text-rose-800">${res.optionC}</p>
+                        </div>
+                    </div>
+                `;
+                lucide.createIcons();
+            } catch (err) {
+                box.innerHTML = `<div class="p-4 bg-rose-50 text-rose-600 text-xs rounded-2xl">拆解失敗: ${err.message}</div>`;
+            }
+        }
+
+        // Feature: Icebreaker
         async function generateIcebreakers() {
             const lastMsg = document.getElementById('icebreakerLastMsg').value.trim();
             const hobby = document.getElementById('icebreakerHobby').value.trim();
@@ -982,7 +1181,7 @@
             } catch (err) { box.innerHTML = `<div class="text-rose-600 text-xs">失敗: ${err.message}</div>`; }
         }
 
-        // New Feature 2: IG Coach
+        // Feature: IG Coach
         async function generateIGCoachAdvice() {
             const story = document.getElementById('igStoryDesc').value.trim();
             const box = document.getElementById('igCoachResult');
@@ -1003,7 +1202,7 @@
             } catch (err) { box.innerHTML = `<div class="text-rose-600 text-xs">失敗: ${err.message}</div>`; }
         }
 
-        // New Feature 3: Cold Recovery
+        // Feature: Cold Recovery
         async function evaluateColdRecovery() {
             const cold = document.getElementById('coldLastInteraction').value.trim();
             const box = document.getElementById('coldRecoveryResult');
