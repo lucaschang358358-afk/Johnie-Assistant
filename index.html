@@ -36,7 +36,7 @@
                         <h1 class="text-lg font-bold tracking-tight text-slate-900">Johnnie Assistant</h1>
                         <span class="text-xs px-2 py-0.5 rounded bg-blue-100 text-blue-700 font-medium">Pro</span>
                     </div>
-                    <p class="text-xs text-slate-500">高情商溝通策略與即時好感度戰情室</p>
+                    <p class="text-xs text-slate-500">高情商沟通策略与即时好感度战情室</p>
                 </div>
             </div>
 
@@ -54,10 +54,10 @@
                     <span id="authStatusText">登录 / 注册</span>
                 </button>
 
-                <!-- API Key Config Button -->
+                <!-- API Key & Model Config Button -->
                 <button onclick="openApiKeyModal()" class="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold border border-slate-300 bg-white hover:bg-slate-50 transition text-slate-700 shadow-sm">
-                    <i data-lucide="key" class="w-4 h-4 text-amber-500"></i>
-                    <span id="keyStatusText">API Key</span>
+                    <i data-lucide="settings" class="w-4 h-4 text-blue-600"></i>
+                    <span id="keyStatusText">模型与 API 設定</span>
                 </button>
             </div>
         </div>
@@ -69,6 +69,10 @@
             <button onclick="switchTab('simulation')" id="tab-simulation" class="tab-btn flex-1 py-3 px-4 rounded-xl text-sm font-semibold flex items-center justify-center space-x-2 transition bg-blue-600 text-white shadow-md">
                 <i data-lucide="swords" class="w-4 h-4"></i>
                 <span>沙盘推演 & 恋爱顾问</span>
+            </button>
+            <button onclick="switchTab('memory')" id="tab-memory" class="tab-btn flex-1 py-3 px-4 rounded-xl text-sm font-semibold flex items-center justify-center space-x-2 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
+                <i data-lucide="brain" class="w-4 h-4 text-purple-600"></i>
+                <span>AI 长期记忆与角色侧写</span>
             </button>
             <button onclick="switchTab('reply')" id="tab-reply" class="tab-btn flex-1 py-3 px-4 rounded-xl text-sm font-semibold flex items-center justify-center space-x-2 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
                 <i data-lucide="sparkles" class="w-4 h-4"></i>
@@ -104,7 +108,7 @@
                             <option value="热络暧昧期">热络暧昧期</option>
                             <option value="对方忽冷忽热/瓶颈期">对方忽冷忽热 / 瓶颈期</option>
                             <option value="约会后跟进">约会后跟进</option>
-                            <option value="关系修復/挽回">关系修复 / 挽回</option>
+                            <option value="关系修复/挽回">关系修复 / 挽回</option>
                         </select>
                     </div>
 
@@ -118,7 +122,7 @@
                         </select>
                     </div>
 
-                    <!-- Interest Score Card (Strictly 0.0% initial, updates ONLY on AI input) -->
+                    <!-- Interest Score Card -->
                     <div class="p-4 bg-blue-50/60 border border-blue-200 rounded-2xl space-y-2">
                         <div class="flex justify-between items-center text-xs">
                             <span class="text-blue-900 font-semibold flex items-center space-x-1">
@@ -170,7 +174,49 @@
             </div>
         </section>
 
-        <!-- Tab 2: 多维度气场回复器 -->
+        <!-- Tab 2: AI 长期记忆与角色侧写 -->
+        <section id="section-memory" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
+                <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+                    <div class="p-2.5 bg-purple-600 text-white rounded-xl shadow-md">
+                        <i data-lucide="brain" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-sm font-bold text-slate-900">对象心理侧写 (Crush Dossier)</h2>
+                        <p class="text-xs text-slate-500">随着互动增加，AI 会自动学习并构建对方性格</p>
+                    </div>
+                </div>
+
+                <div id="memoryProfileBox" class="space-y-3 text-xs leading-relaxed text-slate-700 flex-1 overflow-y-auto custom-scrollbar">
+                    <div class="p-4 bg-purple-50/60 border border-purple-100 rounded-2xl space-y-2">
+                        <span class="font-bold text-purple-900 block text-sm">💡 记忆自动成形模式已开启</span>
+                        <p>每次您在「沙盘推演」或「对话诊断」中进行互动，Johnnie Assistant 都会提取对方的**性格特徵、喜好、雷点与聊天节奏**，并永久储存至您的云端账号中。</p>
+                    </div>
+                    
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-2">
+                        <span class="font-bold text-slate-800">已提炼的性格记忆碎片：</span>
+                        <ul id="memoryTraitsList" class="list-disc list-inside text-slate-600 space-y-1">
+                            <li>暂无记录，请先在沙盘推演中开始对话...</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button onclick="clearCloudMemory()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs py-2.5 rounded-xl font-medium transition">
+                    清除云端记忆数据
+                </button>
+            </div>
+
+            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col shadow-sm">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">角色成长度与习惯剖析</h3>
+                <div id="memoryAnalysisBox" class="flex-1 flex flex-col justify-center items-center text-slate-400 text-sm py-20 text-center space-y-2">
+                    <i data-lucide="sparkles" class="w-8 h-8 text-purple-400 mb-2"></i>
+                    <p class="font-semibold text-slate-700">聊得越久，AI 顾问越懂他/她</p>
+                    <p class="text-xs text-slate-400">进行 3 次以上的对话推演后，此处将自动生成对方的对话惯性与破冰破解指南。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 3: 多维度气场回复器 -->
         <section id="section-reply" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-5 shadow-sm">
                 <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center space-x-2">
@@ -225,7 +271,7 @@
             </div>
         </section>
 
-        <!-- Tab 3: 對話紀錄診斷儀 -->
+        <!-- Tab 4: 對話紀錄診斷儀 -->
         <section id="section-analyzer" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
                 <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center space-x-2">
@@ -248,7 +294,7 @@
             </div>
         </section>
 
-        <!-- Tab 4: 深夜暈船急救站 SOS -->
+        <!-- Tab 5: 深夜暈船急救站 SOS -->
         <section id="section-detox" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-rose-50/50 border border-rose-200 rounded-2xl p-5 flex flex-col space-y-5 shadow-sm">
                 <div class="flex items-center space-x-3 border-b border-rose-200 pb-4">
@@ -291,7 +337,7 @@
 
     </main>
 
-    <!-- Modal: Auth (Login / Register) -->
+    <!-- Modal: Auth -->
     <div id="authModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white border border-slate-200 rounded-3xl p-8 max-w-md w-full shadow-2xl space-y-6">
             <div class="flex items-center justify-between">
@@ -331,20 +377,36 @@
         </div>
     </div>
 
-    <!-- Modal: API Key Settings -->
+    <!-- Modal: Model & API Key Settings -->
     <div id="apiKeyModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white border border-slate-200 rounded-3xl p-8 max-w-md w-full shadow-2xl space-y-6">
             <h3 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
-                <i data-lucide="key" class="w-5 h-5 text-amber-500"></i>
-                <span>Gemini API Key 设置</span>
+                <i data-lucide="settings" class="w-5 h-5 text-blue-600"></i>
+                <span>模型与 API Key 设置</span>
             </h3>
-            <p class="text-xs text-slate-500 leading-relaxed">
-                请输入您的 Google Gemini API Key 以启用 AI 分析与聊天顾问功能。
-            </p>
-            <div>
-                <label class="block text-slate-700 font-semibold mb-1.5 text-sm">API Key：</label>
-                <input type="password" id="apiKeyInput" placeholder="AIzaSy..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-sm text-slate-800 focus:border-blue-600 focus:outline-none">
+            
+            <div class="space-y-4 text-sm">
+                <div>
+                    <label class="block text-slate-700 font-semibold mb-1.5">调用的 Gemini 模型：</label>
+                    <select id="modelSelect" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-slate-800 focus:border-blue-600 focus:outline-none">
+                        <option value="gemini-3-flash-preview">gemini-3-flash-preview (Gemini 3 Flash 预览版)</option>
+                        <option value="gemini-2.5-flash">gemini-2.5-flash (2.5 Flash 稳定版)</option>
+                        <option value="gemini-1.5-flash">gemini-1.5-flash (1.5 Flash 备用)</option>
+                        <option value="custom">自订其他模型 ID...</option>
+                    </select>
+                </div>
+
+                <div id="customModelBox" class="hidden">
+                    <label class="block text-slate-700 font-semibold mb-1.5">手动输入模型 Endpoint：</label>
+                    <input type="text" id="customModelInput" placeholder="例如：gemini-3.8-flash" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-800 focus:border-blue-600 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-slate-700 font-semibold mb-1.5">Gemini API Key：</label>
+                    <input type="password" id="apiKeyInput" placeholder="AIzaSy..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-slate-800 focus:border-blue-600 focus:outline-none">
+                </div>
             </div>
+
             <div class="flex space-x-3 pt-2">
                 <button onclick="saveApiKey()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm py-3.5 rounded-xl transition shadow-md shadow-blue-500/20">保存设置</button>
                 <button onclick="closeApiKeyModal()" class="px-5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm py-3.5 rounded-xl transition">取消</button>
@@ -352,11 +414,9 @@
         </div>
     </div>
 
-    <!-- JavaScript Application Logic -->
+    <!-- Application Script -->
     <script>
-        // ==========================================
-        // 1. Firebase Initialization (johnnie-assistant)
-        // ==========================================
+        // Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyDrBxq4k0oL2PeqST8lCJfMCUIafj5f3ZI",
             authDomain: "johnnie-assistant.firebaseapp.com",
@@ -369,20 +429,28 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // Global State
+        // State Management
         let currentUser = null;
         let apiKey = localStorage.getItem('johnnie_api_key') || '';
-        let currentScore = 0.0; // Strictly starts at 0.0%
-        let simHistory = [];
-        let isRegisterMode = false;
+        let selectedModel = localStorage.getItem('johnnie_model') || 'gemini-3-flash-preview';
+        let currentScore = 0.0;
         let detoxTimeLeft = 180;
+        let memoryTraits = [];
 
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             updateApiKeyUI();
             startDetoxTimer();
 
-            // Firebase Auth Listener
+            document.getElementById('modelSelect').addEventListener('change', (e) => {
+                const customBox = document.getElementById('customModelBox');
+                if (e.target.value === 'custom') {
+                    customBox.classList.remove('hidden');
+                } else {
+                    customBox.classList.add('hidden');
+                }
+            });
+
             auth.onAuthStateChanged(user => {
                 currentUser = user;
                 const statusBtn = document.getElementById('authStatusText');
@@ -402,7 +470,6 @@
             });
         });
 
-        // Tab Switcher
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(el => {
@@ -415,7 +482,6 @@
             activeBtn.classList.remove('text-slate-600', 'hover:text-blue-600', 'hover:bg-slate-50');
         }
 
-        // Slider Labels
         function updateSliderLabel() {
             const dom = document.getElementById('sliderDominance').value;
             const tone = document.getElementById('sliderTone').value;
@@ -423,7 +489,6 @@
             document.getElementById('valTone').innerText = `Lv. ${tone}`;
         }
 
-        // Score Update Function (Strictly updates based on AI evaluation)
         function updateScore(newScore) {
             currentScore = Math.min(100.0, Math.max(0.0, parseFloat(newScore)));
             const formatted = currentScore.toFixed(1) + '%';
@@ -431,20 +496,19 @@
             document.getElementById('panelScoreVal').innerText = formatted;
             document.getElementById('panelScoreBar').style.width = currentScore + '%';
 
-            // Save to Firestore if logged in
             if (currentUser) {
                 db.collection('users').doc(currentUser.uid).set({ lastScore: currentScore }, { merge: true });
             }
         }
 
-        // Auth Modal Controls
+        // Auth
         function openAuthModal() { document.getElementById('authModal').classList.remove('hidden'); }
         function closeAuthModal() { document.getElementById('authModal').classList.add('hidden'); }
         function toggleAuthMode() {
-            isRegisterMode = !isRegisterMode;
-            document.getElementById('authModalTitle').innerText = isRegisterMode ? "注册新账号" : "账号登录";
-            document.getElementById('authSubmitBtn').innerText = isRegisterMode ? "立即注册" : "登录";
-            document.getElementById('authSwitchBtn').innerText = isRegisterMode ? "已有账号？点此登录" : "没有账号？点此注册新账号";
+            const isReg = document.getElementById('authModalTitle').innerText === "注册新账号";
+            document.getElementById('authModalTitle').innerText = isReg ? "账号登录" : "注册新账号";
+            document.getElementById('authSubmitBtn').innerText = isReg ? "登录" : "立即注册";
+            document.getElementById('authSwitchBtn').innerText = isReg ? "没有账号？点此注册新账号" : "已有账号？点此登录";
         }
 
         async function handleEmailAuth() {
@@ -452,10 +516,11 @@
             const pass = document.getElementById('authPassword').value.trim();
             if (!email || !pass) return alert('请输入邮箱与密码！');
 
+            const isReg = document.getElementById('authModalTitle').innerText === "注册新账号";
             try {
-                if (isRegisterMode) {
+                if (isReg) {
                     await auth.createUserWithEmailAndPassword(email, pass);
-                    alert('注册成功并已自动登录！');
+                    alert('注册成功！');
                 } else {
                     await auth.signInWithEmailAndPassword(email, pass);
                     alert('登录成功！');
@@ -468,74 +533,109 @@
 
         async function handleLogout() {
             await auth.signOut();
-            alert('已成功退出登录。');
             closeAuthModal();
         }
 
         async function loadUserDataFromCloud(uid) {
             try {
                 const doc = await db.collection('users').doc(uid).get();
-                if (doc.exists && doc.data().lastScore !== undefined) {
-                    updateScore(doc.data().lastScore);
+                if (doc.exists) {
+                    const data = doc.data();
+                    if (data.lastScore !== undefined) updateScore(data.lastScore);
+                    if (data.memoryTraits) {
+                        memoryTraits = data.memoryTraits;
+                        renderMemoryTraits();
+                    }
                 }
             } catch (err) {
                 console.error("加载云端数据失败:", err);
             }
         }
 
-        // API Key Modal
+        // Key & Model Config
         function openApiKeyModal() {
             document.getElementById('apiKeyInput').value = apiKey;
+            document.getElementById('modelSelect').value = selectedModel.startsWith('gemini') ? selectedModel : 'custom';
             document.getElementById('apiKeyModal').classList.remove('hidden');
         }
         function closeApiKeyModal() { document.getElementById('apiKeyModal').classList.add('hidden'); }
         function saveApiKey() {
             apiKey = document.getElementById('apiKeyInput').value.trim();
+            const modelSel = document.getElementById('modelSelect').value;
+            selectedModel = modelSel === 'custom' ? document.getElementById('customModelInput').value.trim() : modelSel;
+
             localStorage.setItem('johnnie_api_key', apiKey);
+            localStorage.setItem('johnnie_model', selectedModel);
             updateApiKeyUI();
             closeApiKeyModal();
-            alert('API Key 保存成功！');
+            alert('模型与 API Key 保存成功！');
         }
         function updateApiKeyUI() {
-            document.getElementById('keyStatusText').innerText = apiKey ? "API已连接" : "API Key";
+            document.getElementById('keyStatusText').innerText = apiKey ? `已连接 (${selectedModel})` : "模型与 API 設定";
         }
 
-        // Gemini API Caller with Fallback
+        // Robust Gemini API Caller
         async function callGemini(payload) {
             if (!apiKey) {
                 openApiKeyModal();
-                throw new Error("请先点击右上角设置您的 Gemini API Key。");
+                throw new Error("请先设置您的 Gemini API Key。");
             }
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash:generateContent?key=${apiKey}`;
-            const res = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            if (!res.ok) {
-                // Fallback to gemini-2.5-flash
-                const fbUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-                const fbRes = await fetch(fbUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-                const fbData = await fbRes.json();
-                return fbData.candidates[0].content.parts[0].text;
+
+            const modelName = selectedModel || 'gemini-3-flash-preview';
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+
+            try {
+                const res = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await res.json();
+
+                if (!res.ok || data.error) {
+                    throw new Error(data.error?.message || `API Error Status: ${res.status}`);
+                }
+
+                if (!data.candidates || data.candidates.length === 0) {
+                    throw new Error("AI 未返回有效内容，请检查模型名称或 Key 权限。");
+                }
+
+                return data.candidates[0].content.parts[0].text;
+            } catch (err) {
+                console.error("API Call Error:", err);
+                throw err;
             }
-            const data = await res.json();
-            return data.candidates[0].content.parts[0].text;
         }
 
-        // ==========================================
-        // Tab 1: 沙盘推演逻辑
-        // ==========================================
+        // Memory Traits Rendering & Firestore Sync
+        function renderMemoryTraits() {
+            const listEl = document.getElementById('memoryTraitsList');
+            if (memoryTraits.length === 0) {
+                listEl.innerHTML = `<li>暂无记录，请先在沙盘推演中开始对话...</li>`;
+                return;
+            }
+            listEl.innerHTML = memoryTraits.map(t => `<li>${t}</li>`).join('');
+
+            if (currentUser) {
+                db.collection('users').doc(currentUser.uid).set({ memoryTraits: memoryTraits }, { merge: true });
+            }
+        }
+
+        function clearCloudMemory() {
+            memoryTraits = [];
+            renderMemoryTraits();
+            alert('角色记忆已清空！');
+        }
+
+        // Tab 1: 沙盘推演
         function resetSimChat() {
-            simHistory = [];
             updateScore(0.0);
             document.getElementById('simChatBox').innerHTML = `
                 <div class="flex items-start space-x-4">
-                    <div class="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center text-white shrink-0 shadow-md">
-                        <i data-lucide="bot" class="w-5 h-5"></i>
-                    </div>
+                    <div class="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center text-white shrink-0 shadow-md"><i data-lucide="bot" class="w-5 h-5"></i></div>
                     <div class="bg-slate-50 border border-slate-200 rounded-2xl rounded-tl-none p-5 text-sm text-slate-700 leading-relaxed max-w-[85%] shadow-sm">
-                        对话已重置，好感度归零。随时可以开始新的推演！
+                        对话已重置，好感度归零。
                     </div>
                 </div>
             `;
@@ -555,11 +655,13 @@
             input.value = '';
 
             const prompt = `当前关系阶段：${stage}，对手性格：${persona}。
+已知的对方性格记忆：${JSON.stringify(memoryTraits)}。
 用户输入讯息：${txt}。
 请以严格的 JSON 格式输出评估结果（不要有 markdown 标记）：
 {
-  "mindset": "对方看到这句话后的真实心理反应与情绪分析...",
-  "advice": "Johnnie 顾问的具体应对战术与下一步建议...",
+  "mindset": "对方看到这句话后的真实心理反应...",
+  "advice": "Johnnie 顾问的具体应对战术...",
+  "extractedTrait": "提取出的新性格特征（如无则留空）",
   "newScore": 65.5
 }`;
 
@@ -570,22 +672,15 @@
                 const clean = reply.replace(/```json/g, '').replace(/```/g, '').trim();
                 const res = JSON.parse(clean);
 
-                if (res.newScore !== undefined) {
-                    updateScore(res.newScore);
+                if (res.newScore !== undefined) updateScore(res.newScore);
+                if (res.extractedTrait && !memoryTraits.includes(res.extractedTrait)) {
+                    memoryTraits.push(res.extractedTrait);
+                    renderMemoryTraits();
                 }
 
                 const html = `<b>【🎯 对方内心真实反应】</b><br>${res.mindset}<br><br><b>【💡 顾问战术建议】</b><br>${res.advice}`;
                 appendSimMsg('model', html);
 
-                // Save to Firestore if logged in
-                if (currentUser) {
-                    db.collection('users').doc(currentUser.uid).collection('chats').add({
-                        type: 'simulation',
-                        input: txt,
-                        response: html,
-                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                    });
-                }
             } catch (err) {
                 removeLoading(loadId);
                 appendSimMsg('model', `⚠️ 发生错误: ${err.message}`);
@@ -609,9 +704,7 @@
             lucide.createIcons();
         }
 
-        // ==========================================
-        // Tab 2: 多维度气场回复器
-        // ==========================================
+        // Tab 3: 多维度回复器
         async function generateMultiReplies() {
             const incoming = document.getElementById('replyInputMsg').value.trim();
             const context = document.getElementById('replyContextMsg').value.trim();
@@ -661,9 +754,7 @@
             }
         }
 
-        // ==========================================
-        // Tab 3: 对话纪录诊断仪
-        // ==========================================
+        // Tab 4: 对话诊断
         async function analyzeChatLog() {
             const log = document.getElementById('analyzerInputLog').value.trim();
             const report = document.getElementById('analyzerReport');
@@ -737,9 +828,7 @@
             }
         }
 
-        // ==========================================
-        // Tab 4: 深夜暈船急救站 SOS
-        // ==========================================
+        // Tab 5: 深夜急救站
         function startDetoxTimer() {
             setInterval(() => {
                 if (detoxTimeLeft > 0) {
