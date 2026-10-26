@@ -41,20 +41,17 @@
             </div>
 
             <div class="flex items-center space-x-4">
-                <!-- Interest Score Display -->
                 <div class="hidden sm:flex items-center space-x-2 bg-slate-50 border border-slate-200 px-3.5 py-2 rounded-xl text-xs shadow-inner">
                     <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
                     <span class="text-slate-500 font-medium">当前好感度:</span>
                     <span id="headerScoreDisplay" class="font-mono text-blue-600 font-bold text-base">0.0%</span>
                 </div>
 
-                <!-- User Auth Status Button -->
                 <button onclick="openAuthModal()" id="authStatusBtn" class="flex items-center space-x-2 px-4 py-2 rounded-xl text-xs font-semibold border border-slate-300 bg-white hover:bg-slate-50 transition text-slate-700 shadow-sm">
                     <i data-lucide="user-circle" class="w-4 h-4 text-blue-600"></i>
                     <span id="authStatusText">登录 / 注册</span>
                 </button>
 
-                <!-- API Key & Model Config Button -->
                 <button onclick="openApiKeyModal()" class="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold border border-slate-300 bg-white hover:bg-slate-50 transition text-slate-700 shadow-sm">
                     <i data-lucide="settings" class="w-4 h-4 text-blue-600"></i>
                     <span id="keyStatusText">模型与 API 設定</span>
@@ -68,7 +65,7 @@
         <div class="bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm flex space-x-2">
             <button onclick="switchTab('simulation')" id="tab-simulation" class="tab-btn flex-1 py-3 px-4 rounded-xl text-sm font-semibold flex items-center justify-center space-x-2 transition bg-blue-600 text-white shadow-md">
                 <i data-lucide="swords" class="w-4 h-4"></i>
-                <span>沙盘推演 & 恋爱顾问</span>
+                <span>沙盘推演 & AI 顾问</span>
             </button>
             <button onclick="switchTab('memory')" id="tab-memory" class="tab-btn flex-1 py-3 px-4 rounded-xl text-sm font-semibold flex items-center justify-center space-x-2 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
                 <i data-lucide="brain" class="w-4 h-4 text-purple-600"></i>
@@ -92,15 +89,24 @@
     <!-- Main App Container -->
     <main class="max-w-7xl mx-auto px-6 py-6 flex-1 w-full flex flex-col min-h-0">
 
-        <!-- Tab 1: 沙盘推演 -->
+        <!-- Tab 1: 沙盘推演 & AI 顾问 -->
         <section id="section-simulation" class="tab-content flex-1 grid grid-cols-1 lg:grid-cols-4 gap-6">
             <div class="lg:col-span-1 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-5 shadow-sm">
                 <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center space-x-2">
                     <i data-lucide="sliders" class="w-4 h-4 text-blue-600"></i>
-                    <span>情境与对手参数</span>
+                    <span>互动模式与参数</span>
                 </h2>
 
                 <div class="space-y-4 text-sm">
+                    <!-- Mode Selector -->
+                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+                        <label class="block text-slate-700 font-semibold text-xs">当前互动模式</label>
+                        <select id="chatInteractionMode" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-xs text-slate-800 focus:border-blue-600 focus:outline-none font-medium">
+                            <option value="advisor">🧠 純 AI 顧問諮詢（問問題、問意見）</option>
+                            <option value="simulate">⚔️ 模擬對象反應（測試發話效果）</option>
+                        </select>
+                    </div>
+
                     <div>
                         <label class="block text-slate-700 font-semibold mb-1.5">当前关系阶段</label>
                         <select id="simStage" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-800 focus:border-blue-600 focus:outline-none">
@@ -134,7 +140,6 @@
                         <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
                             <div id="panelScoreBar" class="bg-blue-600 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
                         </div>
-                        <p class="text-[11px] text-slate-500 pt-1">💡 好感度根据您输入对话后的 AI 实际分析结果动态更新。</p>
                     </div>
                 </div>
 
@@ -142,7 +147,7 @@
                     <span class="text-slate-400" id="cloudSyncStatus">云端同步: 未登录</span>
                     <button onclick="resetSimChat()" class="text-slate-500 hover:text-rose-600 transition flex items-center space-x-1 font-medium">
                         <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-                        <span>重置沙盘</span>
+                        <span>重置对话</span>
                     </button>
                 </div>
             </div>
@@ -156,17 +161,17 @@
                         </div>
                         <div class="bg-slate-50 border border-slate-200 rounded-2xl rounded-tl-none p-5 text-sm text-slate-700 leading-relaxed max-w-[85%] space-y-2 shadow-sm">
                             <p class="font-bold text-blue-600 text-base">欢迎来到 Johnnie Assistant 策略顾问室。</p>
-                            <p>请在左侧设定对手性格与阶段。您可以向我咨询任何追人难题，或输入您打算发送给对方的对话，我将为您深度剖析对方心理并即时更新好感度！</p>
+                            <p>您可以在左侧切换模式：选择<b>「純 AI 顧問諮詢」</b>时，您可以直接向我问问题（例如：「我们不认识该怎么开口？」）；选择<b>「模擬對象反應」</b>时，我将帮您测试发话效果！</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="p-4 border-t border-slate-200 bg-slate-50">
                     <form onsubmit="handleSimSubmit(event)" class="flex items-center space-x-3">
-                        <input type="text" id="simInput" placeholder="输入您遇到的问题，或贴上打算发送的对话..." 
+                        <input type="text" id="simInput" placeholder="输入您想问顾问的问题，或贴上打算发送的对话..." 
                                class="flex-1 bg-white border border-slate-300 rounded-2xl px-5 py-3 text-sm text-slate-800 placeholder-slate-400 focus:border-blue-600 focus:outline-none shadow-sm">
                         <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl text-sm font-semibold transition flex items-center space-x-2 shrink-0 shadow-md shadow-blue-500/20">
-                            <span>发送推演</span>
+                            <span>发送</span>
                             <i data-lucide="send" class="w-4 h-4"></i>
                         </button>
                     </form>
@@ -174,7 +179,7 @@
             </div>
         </section>
 
-        <!-- Tab 2: AI 长期记忆与角色侧写 -->
+        <!-- Tab 2: AI 长期记忆與角色侧写 -->
         <section id="section-memory" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
                 <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
@@ -190,13 +195,13 @@
                 <div id="memoryProfileBox" class="space-y-3 text-xs leading-relaxed text-slate-700 flex-1 overflow-y-auto custom-scrollbar">
                     <div class="p-4 bg-purple-50/60 border border-purple-100 rounded-2xl space-y-2">
                         <span class="font-bold text-purple-900 block text-sm">💡 记忆自动成形模式已开启</span>
-                        <p>每次您在「沙盘推演」或「对话诊断」中进行互动，Johnnie Assistant 都会提取对方的**性格特徵、喜好、雷点与聊天节奏**，并永久储存至您的云端账号中。</p>
+                        <p>每次您在系统中互动，Johnnie Assistant 都会提取对方的性格特征与习惯并储存至您的云端账号中。</p>
                     </div>
                     
                     <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-2">
                         <span class="font-bold text-slate-800">已提炼的性格记忆碎片：</span>
                         <ul id="memoryTraitsList" class="list-disc list-inside text-slate-600 space-y-1">
-                            <li>暂无记录，请先在沙盘推演中开始对话...</li>
+                            <li>暂无记录，请先开始对话...</li>
                         </ul>
                     </div>
                 </div>
@@ -211,7 +216,6 @@
                 <div id="memoryAnalysisBox" class="flex-1 flex flex-col justify-center items-center text-slate-400 text-sm py-20 text-center space-y-2">
                     <i data-lucide="sparkles" class="w-8 h-8 text-purple-400 mb-2"></i>
                     <p class="font-semibold text-slate-700">聊得越久，AI 顾问越懂他/她</p>
-                    <p class="text-xs text-slate-400">进行 3 次以上的对话推演后，此处将自动生成对方的对话惯性与破冰破解指南。</p>
                 </div>
             </div>
         </section>
@@ -227,13 +231,13 @@
                 <div class="space-y-4 text-sm">
                     <div>
                         <label class="block text-slate-700 font-semibold mb-1.5">对方传来的讯息：</label>
-                        <textarea id="replyInputMsg" rows="3" placeholder="例如：「最近工作好忙喔，这週末好像只能留在家休息了...」"
+                        <textarea id="replyInputMsg" rows="3" placeholder="例如：「最近工作好忙喔...」"
                                   class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-sm text-slate-800 focus:border-blue-600 focus:outline-none"></textarea>
                     </div>
 
                     <div>
                         <label class="block text-slate-700 font-semibold mb-1.5">上下文 / 当前关系目标：</label>
-                        <input type="text" id="replyContextMsg" placeholder="例如：刚认识一週，想约对方週末去吃甜点"
+                        <input type="text" id="replyContextMsg" placeholder="例如：刚认识一週，想约对方週末"
                                class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-800 focus:border-blue-600 focus:outline-none">
                     </div>
 
@@ -278,7 +282,7 @@
                     <i data-lucide="file-text" class="w-4 h-4 text-blue-600"></i>
                     <span>對話紀錄貼上</span>
                 </h2>
-                <textarea id="analyzerInputLog" rows="12" placeholder="貼上雙方對話紀錄，例如：&#10;我: 昨天推薦你的那部影集看了嗎？&#10;對方: 看了一集！蠻有意思的耶哈哈哈"
+                <textarea id="analyzerInputLog" rows="12" placeholder="貼上雙方對話紀錄..."
                           class="w-full flex-1 bg-slate-50 border border-slate-300 rounded-2xl p-4 text-sm text-slate-800 focus:border-blue-600 focus:outline-none custom-scrollbar"></textarea>
                 <button onclick="analyzeChatLog()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3.5 rounded-2xl text-sm font-semibold transition flex items-center justify-center space-x-2 shadow-md shadow-blue-500/20">
                     <i data-lucide="cpu" class="w-4 h-4"></i>
@@ -310,13 +314,12 @@
                 <div class="bg-white border border-rose-200 p-5 rounded-2xl text-center space-y-2 shadow-sm">
                     <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">冷靜思考倒數鎖定</span>
                     <div id="detoxTimer" class="font-mono text-4xl font-extrabold text-rose-600">03:00</div>
-                    <p class="text-xs text-slate-500">倒數結束前，請絕對不要向對方發送任何訊息</p>
                 </div>
 
                 <div class="space-y-4 text-sm">
                     <div>
                         <label class="block text-slate-700 font-semibold mb-1.5">您現在衝動想發給對方的訊息：</label>
-                        <textarea id="impulseMsgInput" rows="4" placeholder="例如：「為什麼妳今天整天都沒回我？是不是我做錯了什麼...？」"
+                        <textarea id="impulseMsgInput" rows="4" placeholder="例如：為什麼妳今天整天都沒回我？"
                                   class="w-full bg-white border border-rose-300 rounded-2xl p-4 text-sm text-slate-800 focus:border-rose-600 focus:outline-none shadow-sm"></textarea>
                     </div>
 
@@ -416,7 +419,6 @@
 
     <!-- Application Script -->
     <script>
-        // Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyDrBxq4k0oL2PeqST8lCJfMCUIafj5f3ZI",
             authDomain: "johnnie-assistant.firebaseapp.com",
@@ -429,7 +431,6 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // State Management
         let currentUser = null;
         let apiKey = localStorage.getItem('johnnie_api_key') || '';
         let selectedModel = localStorage.getItem('johnnie_model') || 'gemini-3-flash-preview';
@@ -501,7 +502,6 @@
             }
         }
 
-        // Auth
         function openAuthModal() { document.getElementById('authModal').classList.remove('hidden'); }
         function closeAuthModal() { document.getElementById('authModal').classList.add('hidden'); }
         function toggleAuthMode() {
@@ -515,26 +515,15 @@
             const email = document.getElementById('authEmail').value.trim();
             const pass = document.getElementById('authPassword').value.trim();
             if (!email || !pass) return alert('请输入邮箱与密码！');
-
             const isReg = document.getElementById('authModalTitle').innerText === "注册新账号";
             try {
-                if (isReg) {
-                    await auth.createUserWithEmailAndPassword(email, pass);
-                    alert('注册成功！');
-                } else {
-                    await auth.signInWithEmailAndPassword(email, pass);
-                    alert('登录成功！');
-                }
+                if (isReg) { await auth.createUserWithEmailAndPassword(email, pass); alert('注册成功！'); }
+                else { await auth.signInWithEmailAndPassword(email, pass); alert('登录成功！'); }
                 closeAuthModal();
-            } catch (err) {
-                alert('认证失败: ' + err.message);
-            }
+            } catch (err) { alert('认证失败: ' + err.message); }
         }
 
-        async function handleLogout() {
-            await auth.signOut();
-            closeAuthModal();
-        }
+        async function handleLogout() { await auth.signOut(); closeAuthModal(); }
 
         async function loadUserDataFromCloud(uid) {
             try {
@@ -542,17 +531,11 @@
                 if (doc.exists) {
                     const data = doc.data();
                     if (data.lastScore !== undefined) updateScore(data.lastScore);
-                    if (data.memoryTraits) {
-                        memoryTraits = data.memoryTraits;
-                        renderMemoryTraits();
-                    }
+                    if (data.memoryTraits) { memoryTraits = data.memoryTraits; renderMemoryTraits(); }
                 }
-            } catch (err) {
-                console.error("加载云端数据失败:", err);
-            }
+            } catch (err) { console.error("加载云端数据失败:", err); }
         }
 
-        // Key & Model Config
         function openApiKeyModal() {
             document.getElementById('apiKeyInput').value = apiKey;
             document.getElementById('modelSelect').value = selectedModel.startsWith('gemini') ? selectedModel : 'custom';
@@ -563,80 +546,42 @@
             apiKey = document.getElementById('apiKeyInput').value.trim();
             const modelSel = document.getElementById('modelSelect').value;
             selectedModel = modelSel === 'custom' ? document.getElementById('customModelInput').value.trim() : modelSel;
-
             localStorage.setItem('johnnie_api_key', apiKey);
             localStorage.setItem('johnnie_model', selectedModel);
             updateApiKeyUI();
             closeApiKeyModal();
-            alert('模型与 API Key 保存成功！');
+            alert('保存成功！');
         }
         function updateApiKeyUI() {
             document.getElementById('keyStatusText').innerText = apiKey ? `已连接 (${selectedModel})` : "模型与 API 設定";
         }
 
-        // Robust Gemini API Caller
         async function callGemini(payload) {
-            if (!apiKey) {
-                openApiKeyModal();
-                throw new Error("请先设置您的 Gemini API Key。");
-            }
-
+            if (!apiKey) { openApiKeyModal(); throw new Error("请先设置您的 Gemini API Key。"); }
             const modelName = selectedModel || 'gemini-3-flash-preview';
             const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
-
-            try {
-                const res = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                const data = await res.json();
-
-                if (!res.ok || data.error) {
-                    throw new Error(data.error?.message || `API Error Status: ${res.status}`);
-                }
-
-                if (!data.candidates || data.candidates.length === 0) {
-                    throw new Error("AI 未返回有效内容，请检查模型名称或 Key 权限。");
-                }
-
-                return data.candidates[0].content.parts[0].text;
-            } catch (err) {
-                console.error("API Call Error:", err);
-                throw err;
-            }
+            const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            const data = await res.json();
+            if (!res.ok || data.error) throw new Error(data.error?.message || `API Error: ${res.status}`);
+            if (!data.candidates || data.candidates.length === 0) throw new Error("AI 未返回有效内容。");
+            return data.candidates[0].content.parts[0].text;
         }
 
-        // Memory Traits Rendering & Firestore Sync
         function renderMemoryTraits() {
             const listEl = document.getElementById('memoryTraitsList');
-            if (memoryTraits.length === 0) {
-                listEl.innerHTML = `<li>暂无记录，请先在沙盘推演中开始对话...</li>`;
-                return;
-            }
+            if (memoryTraits.length === 0) { listEl.innerHTML = `<li>暂无记录...</li>`; return; }
             listEl.innerHTML = memoryTraits.map(t => `<li>${t}</li>`).join('');
-
-            if (currentUser) {
-                db.collection('users').doc(currentUser.uid).set({ memoryTraits: memoryTraits }, { merge: true });
-            }
+            if (currentUser) db.collection('users').doc(currentUser.uid).set({ memoryTraits: memoryTraits }, { merge: true });
         }
 
-        function clearCloudMemory() {
-            memoryTraits = [];
-            renderMemoryTraits();
-            alert('角色记忆已清空！');
-        }
+        function clearCloudMemory() { memoryTraits = []; renderMemoryTraits(); alert('已清空！'); }
 
-        // Tab 1: 沙盘推演
         function resetSimChat() {
             updateScore(0.0);
             document.getElementById('simChatBox').innerHTML = `
                 <div class="flex items-start space-x-4">
                     <div class="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center text-white shrink-0 shadow-md"><i data-lucide="bot" class="w-5 h-5"></i></div>
-                    <div class="bg-slate-50 border border-slate-200 rounded-2xl rounded-tl-none p-5 text-sm text-slate-700 leading-relaxed max-w-[85%] shadow-sm">
-                        对话已重置，好感度归零。
-                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl rounded-tl-none p-5 text-sm text-slate-700 leading-relaxed max-w-[85%] shadow-sm">对话已重置。</div>
                 </div>
             `;
             lucide.createIcons();
@@ -648,13 +593,24 @@
             const txt = input.value.trim();
             if (!txt) return;
 
+            const mode = document.getElementById('chatInteractionMode').value;
             const stage = document.getElementById('simStage').value;
             const persona = document.getElementById('simPersona').value;
 
             appendSimMsg('user', txt);
             input.value = '';
 
-            const prompt = `当前关系阶段：${stage}，对手性格：${persona}。
+            let prompt = '';
+            if (mode === 'advisor') {
+                // 纯 AI 顾问模式：直接回答使用者問題
+                prompt = `你是专业恋爱策略顾问 Johnnie Assistant。
+当前关系阶段：${stage}，对方性格：${persona}。
+已知的对方性格记忆：${JSON.stringify(memoryTraits)}。
+用户向你提问/求助：「${txt}」。
+请以专业、高情商、犀利且具建设性的语气直接回答用户的提问，给出具体的破冰话术或行动建议。返回纯文本或适当 HTML 格式（不需要输出 JSON）。`;
+            } else {
+                // 模拟对话模式
+                prompt = `当前关系阶段：${stage}，对手性格：${persona}。
 已知的对方性格记忆：${JSON.stringify(memoryTraits)}。
 用户输入讯息：${txt}。
 请以严格的 JSON 格式输出评估结果（不要有 markdown 标记）：
@@ -664,23 +620,26 @@
   "extractedTrait": "提取出的新性格特征（如无则留空）",
   "newScore": 65.5
 }`;
+            }
 
             const loadId = appendLoading('simChatBox');
             try {
                 const reply = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
                 removeLoading(loadId);
-                const clean = reply.replace(/```json/g, '').replace(/```/g, '').trim();
-                const res = JSON.parse(clean);
 
-                if (res.newScore !== undefined) updateScore(res.newScore);
-                if (res.extractedTrait && !memoryTraits.includes(res.extractedTrait)) {
-                    memoryTraits.push(res.extractedTrait);
-                    renderMemoryTraits();
+                if (mode === 'advisor') {
+                    appendSimMsg('model', `<b>【💡 Johnnie 顾问策略解答】</b><br>${reply.replace(/\n/g, '<br>')}`);
+                } else {
+                    const clean = reply.replace(/```json/g, '').replace(/```/g, '').trim();
+                    const res = JSON.parse(clean);
+                    if (res.newScore !== undefined) updateScore(res.newScore);
+                    if (res.extractedTrait && !memoryTraits.includes(res.extractedTrait)) {
+                        memoryTraits.push(res.extractedTrait);
+                        renderMemoryTraits();
+                    }
+                    const html = `<b>【🎯 对方内心真实反应】</b><br>${res.mindset}<br><br><b>【💡 顾问战术建议】</b><br>${res.advice}`;
+                    appendSimMsg('model', html);
                 }
-
-                const html = `<b>【🎯 对方内心真实反应】</b><br>${res.mindset}<br><br><b>【💡 顾问战术建议】</b><br>${res.advice}`;
-                appendSimMsg('model', html);
-
             } catch (err) {
                 removeLoading(loadId);
                 appendSimMsg('model', `⚠️ 发生错误: ${err.message}`);
@@ -704,131 +663,55 @@
             lucide.createIcons();
         }
 
-        // Tab 3: 多维度回复器
         async function generateMultiReplies() {
             const incoming = document.getElementById('replyInputMsg').value.trim();
             const context = document.getElementById('replyContextMsg').value.trim();
             const dom = document.getElementById('sliderDominance').value;
             const tone = document.getElementById('sliderTone').value;
             const grid = document.getElementById('replyResultsGrid');
-
-            if (!incoming) return alert('请先输入对方传来的讯息！');
-
-            grid.innerHTML = `<div class="col-span-full text-center py-24 text-blue-600 text-sm font-semibold animate-pulse">Johnnie 正在调校 8 种风格话术...</div>`;
-
-            const prompt = `对方讯息：「${incoming}」
-背景：「${context || '无'}」
-气场主导度：${dom}/5，轻松度：${tone}/5。
-请生成 8 种风格话术（幽默风趣、温柔贴心、暧昧撩人、高冷直率、高情商撤退、推拉话术、温柔直球、幽默化解尴尬）。
-严格输出 JSON 数组格式，无 markdown：
-[
-  { "style": "幽默风趣", "reply": "..." },
-  ...
-]`;
-
+            if (!incoming) return alert('请先输入讯息！');
+            grid.innerHTML = `<div class="col-span-full text-center py-24 text-blue-600 text-sm font-semibold animate-pulse">Johnnie 正在生成...</div>`;
+            const prompt = `对方讯息：「${incoming}」\n背景：「${context || '无'}」\n主导度：${dom}/5，轻松度：${tone}/5。\n生成 8 种风格话术，严格 JSON 数组格式，无 markdown：\n[{"style":"幽默风趣","reply":"..."}]`;
             try {
                 const resText = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
                 const list = JSON.parse(resText.replace(/```json/g, '').replace(/```/g, '').trim());
-
                 grid.innerHTML = '';
                 list.forEach(item => {
                     const card = document.createElement('div');
                     card.className = "bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-2.5 shadow-sm flex flex-col justify-between";
-                    card.innerHTML = `
-                        <div>
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="text-xs font-bold text-blue-700 bg-blue-100 px-2.5 py-1 rounded-lg border border-blue-200">${item.style}</span>
-                                <button onclick="copyTxt('${escapeJs(item.reply)}', this)" class="text-xs text-slate-500 hover:text-blue-600 flex items-center space-x-1 font-medium">
-                                    <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                    <span>复制</span>
-                                </button>
-                            </div>
-                            <p class="text-sm text-slate-800 leading-relaxed">${item.reply}</p>
-                        </div>
-                    `;
+                    card.innerHTML = `<div><div class="flex items-center justify-between mb-2"><span class="text-xs font-bold text-blue-700 bg-blue-100 px-2.5 py-1 rounded-lg">${item.style}</span><button onclick="copyTxt('${escapeJs(item.reply)}', this)" class="text-xs text-slate-500 hover:text-blue-600">复制</button></div><p class="text-sm text-slate-800 leading-relaxed">${item.reply}</p></div>`;
                     grid.appendChild(card);
                 });
                 lucide.createIcons();
-            } catch (err) {
-                grid.innerHTML = `<div class="col-span-full p-4 bg-rose-50 text-rose-600 text-sm rounded-2xl border border-rose-200">生成失败: ${err.message}</div>`;
-            }
+            } catch (err) { grid.innerHTML = `<div class="col-span-full p-4 bg-rose-50 text-rose-600 text-sm rounded-2xl">失败: ${err.message}</div>`; }
         }
 
-        // Tab 4: 对话诊断
         async function analyzeChatLog() {
             const log = document.getElementById('analyzerInputLog').value.trim();
             const report = document.getElementById('analyzerReport');
             if (!log) return alert('请贴上对话纪录！');
-
-            report.innerHTML = `<div class="text-center py-24 text-blue-600 text-sm font-semibold animate-pulse">正在进行全效数据剖析...</div>`;
-
-            const prompt = `请深度诊断以下对话：\n"""\n${log}\n"""\n严格输出 JSON 格式：
-{
-  "score": 75.5,
-  "subtext": "潜台词与心理状态分析...",
-  "greenFlags": ["正面讯号1", "正面讯号2"],
-  "redFlags": ["警讯1"],
-  "strategy": "下一步战术建议..."
-}`;
-
+            report.innerHTML = `<div class="text-center py-24 text-blue-600 text-sm font-semibold animate-pulse">诊断中...</div>`;
+            const prompt = `深度诊断对话：\n"""\n${log}\n"""\n严格输出 JSON：\n{"score":75.5,"subtext":"...","greenFlags":["..."],"redFlags":["..."],"strategy":"..."}`;
             try {
                 const resText = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
                 const res = JSON.parse(resText.replace(/```json/g, '').replace(/```/g, '').trim());
-
                 updateScore(res.score);
-
                 report.innerHTML = `
                     <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl space-y-2">
-                        <div class="flex justify-between items-center text-sm font-bold text-slate-800">
-                            <span>诊断好感度评分</span>
-                            <span class="text-blue-600 font-extrabold text-lg">${res.score.toFixed(1)}%</span>
-                        </div>
-                        <div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden">
-                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: ${res.score}%"></div>
-                        </div>
+                        <div class="flex justify-between items-center text-sm font-bold text-slate-800"><span>诊断评分</span><span class="text-blue-600 font-extrabold text-lg">${res.score.toFixed(1)}%</span></div>
+                        <div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden"><div class="bg-blue-600 h-2.5 rounded-full" style="width: ${res.score}%"></div></div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl space-y-2">
-                            <h4 class="text-xs font-bold text-emerald-800 flex items-center space-x-1">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
-                                <span>Green Flags (正面讯号)</span>
-                            </h4>
-                            <ul class="text-xs text-emerald-700 space-y-1 list-disc list-inside">
-                                ${res.greenFlags.map(f => `<li>${f}</li>`).join('')}
-                            </ul>
-                        </div>
-                        <div class="bg-rose-50 border border-rose-200 p-4 rounded-2xl space-y-2">
-                            <h4 class="text-xs font-bold text-rose-800 flex items-center space-x-1">
-                                <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-600"></i>
-                                <span>Red Flags (注意警讯)</span>
-                            </h4>
-                            <ul class="text-xs text-rose-700 space-y-1 list-disc list-inside">
-                                ${res.redFlags.map(f => `<li>${f}</li>`).join('')}
-                            </ul>
-                        </div>
+                        <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl space-y-2"><h4 class="text-xs font-bold text-emerald-800">Green Flags</h4><ul class="text-xs text-emerald-700 space-y-1 list-disc list-inside">${res.greenFlags.map(f=>`<li>${f}</li>`).join('')}</ul></div>
+                        <div class="bg-rose-50 border border-rose-200 p-4 rounded-2xl space-y-2"><h4 class="text-xs font-bold text-rose-800">Red Flags</h4><ul class="text-xs text-rose-700 space-y-1 list-disc list-inside">${res.redFlags.map(f=>`<li>${f}</li>`).join('')}</ul></div>
                     </div>
-                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-1.5">
-                        <h4 class="text-xs font-bold text-slate-700 flex items-center space-x-1">
-                            <i data-lucide="eye" class="w-4 h-4 text-blue-600"></i>
-                            <span>潜台词解读</span>
-                        </h4>
-                        <p class="text-xs text-slate-600 leading-relaxed">${res.subtext}</p>
-                    </div>
-                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl space-y-1.5">
-                        <h4 class="text-xs font-bold text-blue-900 flex items-center space-x-1">
-                            <i data-lucide="flag" class="w-4 h-4 text-blue-600"></i>
-                            <span>Johnnie 战术指南</span>
-                        </h4>
-                        <p class="text-xs text-blue-800 leading-relaxed">${res.strategy}</p>
-                    </div>
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-1.5"><h4 class="text-xs font-bold text-slate-700">潜台词解读</h4><p class="text-xs text-slate-600 leading-relaxed">${res.subtext}</p></div>
+                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl space-y-1.5"><h4 class="text-xs font-bold text-blue-900">战术指南</h4><p class="text-xs text-blue-800 leading-relaxed">${res.strategy}</p></div>
                 `;
                 lucide.createIcons();
-            } catch (err) {
-                report.innerHTML = `<div class="p-4 bg-rose-50 text-rose-600 text-sm rounded-2xl border border-rose-200">诊断失败: ${err.message}</div>`;
-            }
+            } catch (err) { report.innerHTML = `<div class="p-4 bg-rose-50 text-rose-600 text-sm rounded-2xl">失败: ${err.message}</div>`; }
         }
 
-        // Tab 5: 深夜急救站
         function startDetoxTimer() {
             setInterval(() => {
                 if (detoxTimeLeft > 0) {
@@ -843,75 +726,44 @@
         async function evaluateImpulseMsg() {
             const msg = document.getElementById('impulseMsgInput').value.trim();
             const resContainer = document.getElementById('detoxResult');
-            if (!msg) return alert('请输入想发送的冲动讯息！');
-
-            resContainer.innerHTML = `<div class="text-rose-600 text-sm font-semibold animate-pulse">正在评估此讯息的毁灭性风险...</div>`;
-
-            const prompt = `冲动发言评估：「${msg}」。严格输出 JSON：\n{"penalty": -15.5, "perspective": "对方看到后的真实负面感受..."}`;
-
+            if (!msg) return alert('请输入讯息！');
+            resContainer.innerHTML = `<div class="text-rose-600 text-sm font-semibold animate-pulse">评估中...</div>`;
+            const prompt = `冲动发言评估：「${msg}」。严格输出 JSON：\n{"penalty": -15.5, "perspective": "..."}`;
             try {
                 const reply = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
                 const res = JSON.parse(reply.replace(/```json/g, '').replace(/```/g, '').trim());
-
                 resContainer.innerHTML = `
                     <div class="w-full space-y-4">
                         <div class="bg-rose-50 border border-rose-200 p-5 rounded-2xl flex items-center justify-between shadow-sm">
-                            <div>
-                                <span class="text-xs text-rose-800 font-bold block">好感度预估扣除</span>
-                                <span class="text-xs text-rose-600">强烈建议：绝对不要发送！</span>
-                            </div>
+                            <div><span class="text-xs text-rose-800 font-bold block">预估扣除</span><span class="text-xs text-rose-600">绝对不要发送！</span></div>
                             <span class="font-mono text-3xl font-extrabold text-rose-600">${res.penalty}%</span>
                         </div>
                         <div class="bg-slate-50 border border-slate-200 p-5 rounded-2xl space-y-2 shadow-sm">
-                            <span class="font-bold text-slate-800 text-xs flex items-center space-x-1.5">
-                                <i data-lucide="eye-off" class="w-4 h-4 text-rose-600"></i>
-                                <span>对方接收后的真实心理观感</span>
-                            </span>
+                            <span class="font-bold text-slate-800 text-xs">对方真实观感</span>
                             <p class="text-xs text-slate-600 leading-relaxed">${res.perspective}</p>
                         </div>
                     </div>
                 `;
                 lucide.createIcons();
-            } catch (err) {
-                resContainer.innerHTML = `<div class="text-rose-600 text-xs">评估失败: ${err.message}</div>`;
-            }
+            } catch (err) { resContainer.innerHTML = `<div class="text-rose-600 text-xs">失败: ${err.message}</div>`; }
         }
 
-        // Helpers
         function appendLoading(boxId) {
             const box = document.getElementById(boxId);
             const id = 'load-' + Date.now();
             const div = document.createElement('div');
             div.id = id;
             div.className = "flex items-start space-x-4";
-            div.innerHTML = `
-                <div class="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center text-white shrink-0 shadow-md"><i data-lucide="bot" class="w-5 h-5"></i></div>
-                <div class="bg-slate-50 border border-slate-200 rounded-2xl rounded-tl-none p-4 text-sm text-slate-500 flex items-center space-x-2">
-                    <span class="animate-pulse">Johnnie 正在深度演算中...</span>
-                </div>
-            `;
+            div.innerHTML = `<div class="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center text-white shrink-0 shadow-md"><i data-lucide="bot" class="w-5 h-5"></i></div><div class="bg-slate-50 border border-slate-200 rounded-2xl rounded-tl-none p-4 text-sm text-slate-500 animate-pulse">Johnnie 正在深度演算中...</div>`;
             box.appendChild(div);
             box.scrollTop = box.scrollHeight;
             lucide.createIcons();
             return id;
         }
 
-        function removeLoading(id) {
-            const el = document.getElementById(id);
-            if (el) el.remove();
-        }
-
-        function copyTxt(text, btn) {
-            navigator.clipboard.writeText(text).then(() => {
-                const old = btn.innerText;
-                btn.innerText = "已复制！";
-                setTimeout(() => btn.innerText = old, 1500);
-            });
-        }
-
-        function escapeJs(str) {
-            return str.replace(/'/g, "\\'").replace(/"/g, '&quot;').replace(/\n/g, '\\n');
-        }
+        function removeLoading(id) { const el = document.getElementById(id); if (el) el.remove(); }
+        function copyTxt(text, btn) { navigator.clipboard.writeText(text).then(() => { const old = btn.innerText; btn.innerText = "已复制！"; setTimeout(() => btn.innerText = old, 1500); }); }
+        function escapeJs(str) { return str.replace(/'/g, "\\'").replace(/"/g, '&quot;').replace(/\n/g, '\\n'); }
     </script>
 </body>
 </html>
