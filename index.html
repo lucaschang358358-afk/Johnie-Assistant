@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Johnnie Assistant - 专业情感策略与对话分析平台</title>
+    <title>Johnnie Assistant - 高情商沟通策略与即时战情平台</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -69,7 +69,23 @@
             </button>
             <button onclick="switchTab('scoreroom')" id="tab-scoreroom" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
                 <i data-lucide="activity" class="w-4 h-4 text-blue-600"></i>
-                <span>即时好感度战情室</span>
+                <span>好感度战情室</span>
+            </button>
+            <button onclick="switchTab('analyzer')" id="tab-analyzer" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
+                <i data-lucide="calendar" class="w-4 h-4 text-indigo-600"></i>
+                <span>跨天对话战情日誌</span>
+            </button>
+            <button onclick="switchTab('icebreaker')" id="tab-icebreaker" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
+                <i data-lucide="zap" class="w-4 h-4 text-amber-500"></i>
+                <span>僵局破冰救援</span>
+            </button>
+            <button onclick="switchTab('igcoach')" id="tab-igcoach" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
+                <i data-lucide="instagram" class="w-4 h-4 text-pink-600"></i>
+                <span>IG/社群互动教练</span>
+            </button>
+            <button onclick="switchTab('coldrecovery')" id="tab-coldrecovery" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
+                <i data-lucide="snowflake" class="w-4 h-4 text-cyan-600"></i>
+                <span>冷淡期/已读重启</span>
             </button>
             <button onclick="switchTab('memory')" id="tab-memory" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
                 <i data-lucide="brain" class="w-4 h-4 text-purple-600"></i>
@@ -78,14 +94,6 @@
             <button onclick="switchTab('reply')" id="tab-reply" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
                 <i data-lucide="sparkles" class="w-4 h-4"></i>
                 <span>气场回复器</span>
-            </button>
-            <button onclick="switchTab('analyzer')" id="tab-analyzer" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
-                <i data-lucide="pie-chart" class="w-4 h-4"></i>
-                <span>对话诊断仪</span>
-            </button>
-            <button onclick="switchTab('dateplanner')" id="tab-dateplanner" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
-                <i data-lucide="calendar" class="w-4 h-4 text-emerald-600"></i>
-                <span>约会行程生成</span>
             </button>
             <button onclick="switchTab('detox')" id="tab-detox" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-rose-600 hover:bg-rose-50 border border-rose-200 ml-auto">
                 <i data-lucide="shield-alert" class="w-4 h-4 text-rose-500"></i>
@@ -172,7 +180,7 @@
             </div>
         </section>
 
-        <!-- Tab 2: 即时好感度战情室 (獨立頁面) -->
+        <!-- Tab 2: 好感度战情室 -->
         <section id="section-scoreroom" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 flex flex-col space-y-6 shadow-sm">
                 <div class="flex items-center space-x-3 border-b border-slate-200 pb-4">
@@ -199,7 +207,6 @@
                         <input type="number" id="manualScoreInput" step="0.5" min="0" max="100" placeholder="例如：75.0" class="flex-1 bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:border-blue-600 focus:outline-none">
                         <button onclick="applyManualScore()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 rounded-xl text-xs font-semibold transition">套用更新</button>
                     </div>
-                    <p class="text-[11px] text-slate-400">💡 好感度會隨著每次 AI 診斷或推演自動更新，您也可以在此手動校準。</p>
                 </div>
             </div>
 
@@ -213,7 +220,153 @@
             </div>
         </section>
 
-        <!-- Tab 3: AI 長期記憶與角色側寫 -->
+        <!-- Tab 3: 跨天對話戰情日誌 (按天數保存與全面復盤) -->
+        <section id="section-analyzer" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-4 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="calendar" class="w-5 h-5 text-indigo-600"></i>
+                        <h2 class="text-sm font-bold text-slate-900">歷史戰情日誌</h2>
+                    </div>
+                    <button onclick="addNewLogDay()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-1.5 rounded-lg font-medium transition flex items-center space-x-1">
+                        <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                        <span>新增天數</span>
+                    </button>
+                </div>
+
+                <!-- Days List Container -->
+                <div id="logDaysList" class="space-y-2 flex-1 overflow-y-auto custom-scrollbar max-h-[480px]">
+                    <div class="p-3 bg-slate-50 text-slate-400 text-xs text-center rounded-xl">載入日誌中...</div>
+                </div>
+
+                <button onclick="generateLongitudinalReport()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-xs py-3 rounded-xl font-semibold transition flex items-center justify-center space-x-2 shadow-md shadow-indigo-500/20">
+                    <i data-lucide="trending-up" class="w-4 h-4"></i>
+                    <span>生成全歷史跨天復盤報告</span>
+                </button>
+            </div>
+
+            <div class="lg:col-span-8 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col overflow-y-auto custom-scrollbar max-h-[640px] shadow-sm space-y-5">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                    <h3 id="currentLogTitle" class="text-sm font-bold text-slate-800">Day 1 對話紀錄與單日診斷</h3>
+                    <button onclick="saveCurrentDayLog()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded-xl font-medium transition flex items-center space-x-1">
+                        <i data-lucide="save" class="w-3.5 h-3.5"></i>
+                        <span>保存今天診斷</span>
+                    </button>
+                </div>
+
+                <textarea id="analyzerInputLog" rows="7" placeholder="貼上今天的雙方對話紀錄..."
+                          class="w-full bg-slate-50 border border-slate-300 rounded-2xl p-4 text-xs text-slate-800 focus:border-blue-600 focus:outline-none custom-scrollbar"></textarea>
+
+                <div id="analyzerReport" class="space-y-4">
+                    <div class="text-center py-12 text-slate-400 text-xs">貼上對話後點擊上方「保存今天診斷」</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 4: 僵局破冰救援 -->
+        <section id="section-icebreaker" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
+                <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+                    <div class="p-2.5 bg-amber-500 text-white rounded-xl shadow-md">
+                        <i data-lucide="zap" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-sm font-bold text-slate-900">聊天僵局救援與破冰器</h2>
+                        <p class="text-xs text-slate-500">專治「嗯嗯、哈哈、已讀」乾掉對話</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3 text-sm">
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-1">最後卡住的一兩句話或情境：</label>
+                        <textarea id="icebreakerLastMsg" rows="3" placeholder="例如：對方回了「哈哈是喔」，然後對話就乾掉了" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs focus:border-blue-600 focus:outline-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-1">對方的興趣或已知特徵：</label>
+                        <input type="text" id="icebreakerHobby" placeholder="例如：喜歡出國、養貓、愛吃火鍋" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs focus:border-blue-600 focus:outline-none">
+                    </div>
+                    <button onclick="generateIcebreakers()" class="w-full bg-amber-500 hover:bg-amber-600 text-white py-3.5 rounded-2xl text-xs font-semibold shadow-md transition flex items-center justify-center space-x-2">
+                        <i data-lucide="wand-2" class="w-4 h-4"></i>
+                        <span>生成 3 招打破僵局破冰提案</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col overflow-y-auto custom-scrollbar max-h-[640px] shadow-sm">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">救援破冰方案</h3>
+                <div id="icebreakerResult" class="flex-1 flex flex-col justify-center items-center text-slate-400 text-sm py-24 text-center">
+                    填寫左側僵局情境後點擊生成
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 5: IG/社群互動教練 -->
+        <section id="section-igcoach" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
+                <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+                    <div class="p-2.5 bg-pink-600 text-white rounded-xl shadow-md">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-sm font-bold text-slate-900">IG 限時動態互動教練</h2>
+                        <p class="text-xs text-slate-500">回覆 Story 絕不當舔狗，打造吸睛動態</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3 text-sm">
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-1">對方發的 Story / 貼文內容或圖片描述：</label>
+                        <textarea id="igStoryDesc" rows="3" placeholder="例如：她發了一張去某家咖啡廳喝咖啡的照片，寫著「終於吃到這家了好幸福」" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs focus:border-blue-600 focus:outline-none"></textarea>
+                    </div>
+                    <button onclick="generateIGCoachAdvice()" class="w-full bg-pink-600 hover:bg-pink-700 text-white py-3.5 rounded-2xl text-xs font-semibold shadow-md transition flex items-center justify-center space-x-2">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        <span>生成高情商回覆與自己的發文建議</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col overflow-y-auto custom-scrollbar max-h-[640px] shadow-sm">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">社群互動策略指南</h3>
+                <div id="igCoachResult" class="flex-1 flex flex-col justify-center items-center text-slate-400 text-sm py-24 text-center">
+                    填寫 Story 描述後點擊生成
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 6: 冷淡期/已讀重啟沙盤 -->
+        <section id="section-coldrecovery" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
+                <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+                    <div class="p-2.5 bg-cyan-600 text-white rounded-xl shadow-md">
+                        <i data-lucide="snowflake" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-sm font-bold text-slate-900">冷淡期 / 已讀不回重啟沙盤</h2>
+                        <p class="text-xs text-slate-500">計算黃金冷卻時間與重啟切入點</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3 text-sm">
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-1">冷淡前的最後互動與狀況：</label>
+                        <textarea id="coldLastInteraction" rows="3" placeholder="例如：前幾天聊得很熱絡，但我昨天邀約她後，她回「最近好忙」之後就讀很慢..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs focus:border-blue-600 focus:outline-none"></textarea>
+                    </div>
+                    <button onclick="evaluateColdRecovery()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-3.5 rounded-2xl text-xs font-semibold shadow-md transition flex items-center justify-center space-x-2">
+                        <i data-lucide="clock" class="w-4 h-4"></i>
+                        <span>評估黃金冷卻期與重啟破冰句</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col overflow-y-auto custom-scrollbar max-h-[640px] shadow-sm">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">冷卻重啟戰略報告</h3>
+                <div id="coldRecoveryResult" class="flex-1 flex flex-col justify-center items-center text-slate-400 text-sm py-24 text-center">
+                    填寫冷淡狀況後點擊評估
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 7: AI 記憶與側寫 -->
         <section id="section-memory" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
                 <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
@@ -254,7 +407,7 @@
             </div>
         </section>
 
-        <!-- Tab 4: 多维度气场回复器 -->
+        <!-- Tab 8: 多维度气场回复器 -->
         <section id="section-reply" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-5 shadow-sm">
                 <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center space-x-2">
@@ -309,71 +462,7 @@
             </div>
         </section>
 
-        <!-- Tab 5: 對話紀錄診斷儀 -->
-        <section id="section-analyzer" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
-                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center space-x-2">
-                    <i data-lucide="file-text" class="w-4 h-4 text-blue-600"></i>
-                    <span>對話紀錄貼上</span>
-                </h2>
-                <textarea id="analyzerInputLog" rows="12" placeholder="貼上雙方對話紀錄..."
-                          class="w-full flex-1 bg-slate-50 border border-slate-300 rounded-2xl p-4 text-sm text-slate-800 focus:border-blue-600 focus:outline-none custom-scrollbar"></textarea>
-                <button onclick="analyzeChatLog()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3.5 rounded-2xl text-sm font-semibold transition flex items-center justify-center space-x-2 shadow-md shadow-blue-500/20">
-                    <i data-lucide="cpu" class="w-4 h-4"></i>
-                    <span>啟動全效數據診斷</span>
-                </button>
-            </div>
-
-            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col overflow-y-auto custom-scrollbar max-h-[640px] shadow-sm">
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">戰術診斷報告</h3>
-                <div id="analyzerReport" class="space-y-4">
-                    <div class="text-center py-24 text-slate-400 text-sm">輸入對話紀錄後點擊診斷</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tab 6: 约会行程生成器 (新功能) -->
-        <section id="section-dateplanner" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
-                <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
-                    <div class="p-2.5 bg-emerald-600 text-white rounded-xl shadow-md">
-                        <i data-lucide="calendar" class="w-5 h-5"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-sm font-bold text-slate-900">高成功率約會行程規劃</h2>
-                        <p class="text-xs text-slate-500">根據雙方關係與喜好量身打造約會藍圖</p>
-                    </div>
-                </div>
-
-                <div class="space-y-3 text-sm">
-                    <div>
-                        <label class="block text-slate-700 font-semibold mb-1">目前關係階段 / 互動氛圍：</label>
-                        <input type="text" id="dateStageInput" placeholder="例如：剛約過一次會，雙方有點害羞" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs focus:border-blue-600 focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-slate-700 font-semibold mb-1">對方的興趣或喜好：</label>
-                        <input type="text" id="dateHobbyInput" placeholder="例如：喜歡喝咖啡、看展覽、貓派" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs focus:border-blue-600 focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-slate-700 font-semibold mb-1">約會時段 / 城市：</label>
-                        <input type="text" id="dateTimeInput" placeholder="例如：週末下午，台北市" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs focus:border-blue-600 focus:outline-none">
-                    </div>
-                    <button onclick="generateDatePlan()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-2xl text-xs font-semibold shadow-md transition flex items-center justify-center space-x-2">
-                        <i data-lucide="sparkles" class="w-4 h-4"></i>
-                        <span>生成專屬約會提案與破冰話題</span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col overflow-y-auto custom-scrollbar max-h-[640px] shadow-sm">
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">客製化約會攻略藍圖</h3>
-                <div id="datePlanResult" class="flex-1 flex flex-col justify-center items-center text-slate-400 text-sm py-24 text-center">
-                    填寫左側資訊後點擊生成約會提案
-                </div>
-            </div>
-        </section>
-
-        <!-- Tab 7: 深夜暈船急救站 SOS -->
+        <!-- Tab 9: 深夜暈船急救站 SOS -->
         <section id="section-detox" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-rose-50/50 border border-rose-200 rounded-2xl p-5 flex flex-col space-y-5 shadow-sm">
                 <div class="flex items-center space-x-3 border-b border-rose-200 pb-4">
@@ -512,7 +601,11 @@
         let currentScore = 0.0;
         let detoxTimeLeft = 180;
         let memoryTraits = [];
-        let advisorChatHistory = []; // Cloud synced chat history
+        let advisorChatHistory = [];
+        let dailyLogs = [
+            { dayIndex: 1, text: '', reportHtml: '', score: 0 }
+        ];
+        let currentDayIndex = 1;
 
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
@@ -543,6 +636,7 @@
                     statusBtn.innerText = "登录 / 注册";
                     syncStatus.innerText = "云端同步: 未登录";
                     logoutSec.classList.add('hidden');
+                    renderLogDaysList();
                 }
             });
         });
@@ -619,9 +713,14 @@
                     const data = doc.data();
                     if (data.lastScore !== undefined) updateScore(data.lastScore);
                     if (data.memoryTraits) { memoryTraits = data.memoryTraits; renderMemoryTraits(); }
-                    if (data.advisorChatHistory) {
-                        advisorChatHistory = data.advisorChatHistory;
-                        renderAdvisorChat();
+                    if (data.advisorChatHistory) { advisorChatHistory = data.advisorChatHistory; renderAdvisorChat(); }
+                    if (data.dailyLogs && data.dailyLogs.length > 0) {
+                        dailyLogs = data.dailyLogs;
+                        currentDayIndex = dailyLogs[dailyLogs.length - 1].dayIndex;
+                        renderLogDaysList();
+                        loadDayLog(currentDayIndex);
+                    } else {
+                        renderLogDaysList();
                     }
                 }
             } catch (err) { console.error("加载云端数据失败:", err); }
@@ -675,15 +774,13 @@
                         <div class="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center text-white shrink-0 shadow-md"><i data-lucide="bot" class="w-5 h-5"></i></div>
                         <div class="bg-slate-50 border border-slate-200 rounded-2xl rounded-tl-none p-5 text-sm text-slate-700 leading-relaxed max-w-[85%] space-y-2 shadow-sm">
                             <p class="font-bold text-blue-600 text-base">欢迎来到 Johnnie Assistant 策略顾问室。</p>
-                            <p>聊天记录已加载。随时向我提问！</p>
+                            <p>顾问聊天记录已支援<b>云端同步保存</b>！您可以隨時切換模式向我發問或進行沙盤推演。</p>
                         </div>
                     </div>
                 `;
             } else {
                 box.innerHTML = '';
-                advisorChatHistory.forEach(item => {
-                    appendSimMsgRaw(item.role, item.text);
-                });
+                advisorChatHistory.forEach(item => { appendSimMsgRaw(item.role, item.text); });
             }
             lucide.createIcons();
         }
@@ -691,9 +788,7 @@
         function clearCloudAdvisorChat() {
             advisorChatHistory = [];
             renderAdvisorChat();
-            if (currentUser) {
-                db.collection('users').doc(currentUser.uid).set({ advisorChatHistory: [] }, { merge: true });
-            }
+            if (currentUser) db.collection('users').doc(currentUser.uid).set({ advisorChatHistory: [] }, { merge: true });
             alert('顾问聊天记录已清空！');
         }
 
@@ -713,22 +808,9 @@
 
             let prompt = '';
             if (mode === 'advisor') {
-                prompt = `你是专业恋爱策略顾问 Johnnie Assistant。
-当前关系阶段：${stage}，对方性格：${persona}。
-已知的对方性格记忆：${JSON.stringify(memoryTraits)}。
-用户向你提问/求助：「${txt}」。
-请以专业、高情商、犀利且具建设性的语气直接回答用户的提问，给出具体的破冰话术或行动建议。返回纯文本或适当 HTML 格式（不需要输出 JSON）。`;
+                prompt = `你是专业恋爱策略顾问 Johnnie Assistant。关系阶段：${stage}，对方性格：${persona}。已知性格：${JSON.stringify(memoryTraits)}。用户求助：「${txt}」。请以专业、高情商直接回答。`;
             } else {
-                prompt = `当前关系阶段：${stage}，对手性格：${persona}。
-已知的对方性格记忆：${JSON.stringify(memoryTraits)}。
-用户输入讯息：${txt}。
-请以严格的 JSON 格式输出评估结果（不要有 markdown 标记）：
-{
-  "mindset": "对方看到这句话后的真实心理反应...",
-  "advice": "Johnnie 顾问的具体应对战术...",
-  "extractedTrait": "提取出的新性格特征（如无则留空）",
-  "newScore": 65.5
-}`;
+                prompt = `关系阶段：${stage}，性格：${persona}。已知：${JSON.stringify(memoryTraits)}。用户输入：「${txt}」。严格 JSON 输出：{"mindset":"...","advice":"...","extractedTrait":"...","newScore":65.5}`;
             }
 
             const loadId = appendLoading('simChatBox');
@@ -752,10 +834,7 @@
 
                 appendSimMsg('model', finalHtml);
                 advisorChatHistory.push({ role: 'model', text: finalHtml });
-
-                if (currentUser) {
-                    db.collection('users').doc(currentUser.uid).set({ advisorChatHistory: advisorChatHistory }, { merge: true });
-                }
+                if (currentUser) db.collection('users').doc(currentUser.uid).set({ advisorChatHistory: advisorChatHistory }, { merge: true });
 
             } catch (err) {
                 removeLoading(loadId);
@@ -763,77 +842,186 @@
             }
         }
 
-        function appendSimMsg(role, text) {
-            appendSimMsgRaw(role, text);
-        }
-
+        function appendSimMsg(role, text) { appendSimMsgRaw(role, text); }
         function appendSimMsgRaw(role, text) {
             const box = document.getElementById('simChatBox');
             const div = document.createElement('div');
             div.className = `flex items-start space-x-4 ${role === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`;
             div.innerHTML = `
-                <div class="w-10 h-10 rounded-2xl ${role === 'user' ? 'bg-slate-700' : 'bg-blue-600'} flex items-center justify-center text-white shrink-0 shadow-md">
-                    <i data-lucide="${role === 'user' ? 'user' : 'bot'}" class="w-5 h-5"></i>
-                </div>
-                <div class="${role === 'user' ? 'bg-blue-600 text-white' : 'bg-slate-50 text-slate-800 border border-slate-200'} rounded-2xl p-4 text-sm leading-relaxed max-w-[85%] shadow-sm">
-                    ${text}
-                </div>
+                <div class="w-10 h-10 rounded-2xl ${role === 'user' ? 'bg-slate-700' : 'bg-blue-600'} flex items-center justify-center text-white shrink-0 shadow-md"><i data-lucide="${role === 'user' ? 'user' : 'bot'}" class="w-5 h-5"></i></div>
+                <div class="${role === 'user' ? 'bg-blue-600 text-white' : 'bg-slate-50 text-slate-800 border border-slate-200'} rounded-2xl p-4 text-sm leading-relaxed max-w-[85%] shadow-sm">${text}</div>
             `;
             box.appendChild(div);
             box.scrollTop = box.scrollHeight;
             lucide.createIcons();
         }
 
-        // Tab 6: 约会行程生成器
-        async function generateDatePlan() {
-            const stage = document.getElementById('dateStageInput').value.trim();
-            const hobby = document.getElementById('dateHobbyInput').value.trim();
-            const timeLoc = document.getElementById('dateTimeInput').value.trim();
-            const resultBox = document.getElementById('datePlanResult');
+        // Daily Logs Functions
+        function renderLogDaysList() {
+            const container = document.getElementById('logDaysList');
+            container.innerHTML = dailyLogs.map(item => `
+                <div onclick="selectLogDay(${item.dayIndex})" class="p-3 rounded-xl border transition cursor-pointer flex justify-between items-center ${item.dayIndex === currentDayIndex ? 'bg-indigo-50 border-indigo-300 font-bold text-indigo-900' : 'bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700'}">
+                    <span class="text-xs">Day ${item.dayIndex} 戰情日誌</span>
+                    <span class="font-mono text-xs text-blue-600">${item.score ? item.score.toFixed(1) + '%' : '未評估'}</span>
+                </div>
+            `).join('');
+        }
 
-            if (!stage || !hobby) return alert('请填写真实阶段与兴趣喜好！');
-            resultBox.innerHTML = `<div class="text-emerald-600 text-sm font-semibold animate-pulse py-20">Johnnie 正在规划高成功率约会蓝图...</div>`;
+        function selectLogDay(dayIdx) {
+            currentDayIndex = dayIdx;
+            renderLogDaysList();
+            loadDayLog(dayIdx);
+        }
 
-            const prompt = `关系阶段：「${stage}」，对方喜好：「${hobby}」，时段/地点：「${timeLoc || '未指定'}」。
-请生成一份极具情商与吸引力的約會行程提案，包含：
-1. 约会核心主题与地点建议
-2. 三个阶段的流程安排（破冰點 -> 升溫點 -> 舒適收尾）
-3. 約會中可以順便聊的 3 個破冰話題
-严格输出 JSON 格式（不要有 markdown）：
-{
-  "theme": "约会主题...",
-  "steps": ["行程1...", "行程2...", "行程3..."],
-  "topics": ["话题1...", "话题2...", "话题3..."]
-}`;
+        function loadDayLog(dayIdx) {
+            const item = dailyLogs.find(d => d.dayIndex === dayIdx);
+            document.getElementById('currentLogTitle').innerText = `Day ${dayIdx} 對話紀錄與單日診斷`;
+            document.getElementById('analyzerInputLog').value = item ? item.text : '';
+            document.getElementById('analyzerReport').innerHTML = item && item.reportHtml ? item.reportHtml : `<div class="text-center py-12 text-slate-400 text-xs">點擊上方「保存今天診斷」開始分析</div>`;
+            lucide.createIcons();
+        }
+
+        function addNewLogDay() {
+            const nextIdx = dailyLogs.length > 0 ? dailyLogs[dailyLogs.length - 1].dayIndex + 1 : 1;
+            dailyLogs.push({ dayIndex: nextIdx, text: '', reportHtml: '', score: 0 });
+            selectLogDay(nextIdx);
+            if (currentUser) db.collection('users').doc(currentUser.uid).set({ dailyLogs: dailyLogs }, { merge: true });
+        }
+
+        async function saveCurrentDayLog() {
+            const logText = document.getElementById('analyzerInputLog').value.trim();
+            const reportBox = document.getElementById('analyzerReport');
+            if (!logText) return alert('請先輸入今天的對話紀錄！');
+
+            reportBox.innerHTML = `<div class="text-center py-12 text-indigo-600 text-xs font-semibold animate-pulse">Johnnie 正在剖析 Day ${currentDayIndex} 戰情...</div>`;
+
+            const prompt = `深度诊断 Day ${currentDayIndex} 对话：\n"""\n${logText}\n"""\n严格输出 JSON：\n{"score":75.5,"subtext":"...","greenFlags":["..."],"redFlags":["..."],"strategy":"..."}`;
+
+            try {
+                const resText = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
+                const res = JSON.parse(resText.replace(/```json/g, '').replace(/```/g, '').trim());
+
+                updateScore(res.score);
+
+                const html = `
+                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl space-y-2">
+                        <div class="flex justify-between items-center text-xs font-bold text-slate-800"><span>Day ${currentDayIndex} 診斷好感度</span><span class="text-blue-600 font-extrabold text-sm">${res.score.toFixed(1)}%</span></div>
+                        <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden"><div class="bg-blue-600 h-2 rounded-full" style="width: ${res.score}%"></div></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                        <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-xl space-y-1"><h4 class="font-bold text-emerald-800">Green Flags</h4><ul class="text-emerald-700 list-disc list-inside">${res.greenFlags.map(f=>`<li>${f}</li>`).join('')}</ul></div>
+                        <div class="bg-rose-50 border border-rose-200 p-3 rounded-xl space-y-1"><h4 class="font-bold text-rose-800">Red Flags</h4><ul class="text-rose-700 list-disc list-inside">${res.redFlags.map(f=>`<li>${f}</li>`).join('')}</ul></div>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl space-y-1 text-xs"><h4 class="font-bold text-slate-700">潛台詞解讀</h4><p class="text-slate-600">${res.subtext}</p></div>
+                    <div class="bg-indigo-50 border border-indigo-200 p-3 rounded-xl space-y-1 text-xs"><h4 class="font-bold text-indigo-900">Johnnie 戰術指南</h4><p class="text-indigo-800">${res.strategy}</p></div>
+                `;
+
+                reportBox.innerHTML = html;
+
+                let item = dailyLogs.find(d => d.dayIndex === currentDayIndex);
+                if (!item) {
+                    item = { dayIndex: currentDayIndex, text: logText, reportHtml: html, score: res.score };
+                    dailyLogs.push(item);
+                } else {
+                    item.text = logText;
+                    item.reportHtml = html;
+                    item.score = res.score;
+                }
+
+                renderLogDaysList();
+                if (currentUser) db.collection('users').doc(currentUser.uid).set({ dailyLogs: dailyLogs }, { merge: true });
+                alert(`Day ${currentDayIndex} 診斷已保存至雲端！`);
+
+            } catch (err) {
+                reportBox.innerHTML = `<div class="p-4 bg-rose-50 text-rose-600 text-xs rounded-2xl">診斷失敗: ${err.message}</div>`;
+            }
+        }
+
+        async function generateLongitudinalReport() {
+            const reportBox = document.getElementById('analyzerReport');
+            const allLogsStr = dailyLogs.map(d => `--- Day ${d.dayIndex} ---\n${d.text || '(未紀錄)'}`).join('\n\n');
+
+            reportBox.innerHTML = `<div class="text-center py-12 text-indigo-600 text-xs font-semibold animate-pulse">Johnnie 正在串聯所有歷史天數進行跨天總復盤...</div>`;
+
+            const prompt = `以下是從第一天至今的跨天對話戰情日誌：\n${allLogsStr}\n請進行全歷史復盤，分析：1. 好感度整體演變趨勢 2. 雙方拉鋸關鍵轉折點 3. 下一步長期戰術策略。請以清晰 HTML 格式輸出。`;
 
             try {
                 const reply = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
-                const res = JSON.parse(reply.replace(/```json/g, '').replace(/```/g, '').trim());
-
-                resultBox.innerHTML = `
-                    <div class="w-full space-y-4 text-left">
-                        <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl space-y-1">
-                            <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider">🎯 推荐约会主题</span>
-                            <p class="text-sm font-bold text-emerald-900">${res.theme}</p>
-                        </div>
-                        <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-2">
-                            <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">🗺️ 三阶段行程规划</span>
-                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
-                                ${res.steps.map(s => `<li>${s}</li>`).join('')}
-                            </ul>
-                        </div>
-                        <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl space-y-2">
-                            <span class="text-xs font-bold text-blue-800 uppercase tracking-wider">💬 约会破冰金句话题</span>
-                            <ul class="text-xs text-blue-700 space-y-1.5 list-disc list-inside">
-                                ${res.topics.map(t => `<li>${t}</li>`).join('')}
-                            </ul>
-                        </div>
+                reportBox.innerHTML = `
+                    <div class="bg-indigo-50/80 border border-indigo-200 p-5 rounded-2xl space-y-3 text-xs leading-relaxed text-indigo-950">
+                        <h3 class="text-sm font-bold text-indigo-900 flex items-center space-x-2"><i data-lucide="trending-up" class="w-4 h-4 text-indigo-600"></i><span>全歷史跨天總復盤報告</span></h3>
+                        <div>${reply.replace(/\n/g, '<br>')}</div>
                     </div>
                 `;
                 lucide.createIcons();
             } catch (err) {
-                resultBox.innerHTML = `<div class="text-rose-600 text-xs">生成失败: ${err.message}</div>`;
+                reportBox.innerHTML = `<div class="p-4 bg-rose-50 text-rose-600 text-xs rounded-2xl">總復盤失敗: ${err.message}</div>`;
             }
+        }
+
+        // New Feature 1: Icebreaker
+        async function generateIcebreakers() {
+            const lastMsg = document.getElementById('icebreakerLastMsg').value.trim();
+            const hobby = document.getElementById('icebreakerHobby').value.trim();
+            const box = document.getElementById('icebreakerResult');
+            if (!lastMsg) return alert('請填寫僵局情境！');
+            box.innerHTML = `<div class="text-amber-500 text-xs animate-pulse">正在生成打破僵局策略...</div>`;
+
+            const prompt = `僵局情境：「${lastMsg}」，對方特徵：「${hobby || '無'}」。請生成 3 種破冰方案：1.無痛重啟法 2.開放式好奇心提問 3.推拉式幽默化解。嚴格輸出 JSON 格式：{"hook":"...","curiosity":"...","pushpull":"..."}`;
+
+            try {
+                const reply = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
+                const res = JSON.parse(reply.replace(/```json/g, '').replace(/```/g, '').trim());
+                box.innerHTML = `
+                    <div class="w-full space-y-3 text-xs text-left">
+                        <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl"><span class="font-bold text-amber-900 block mb-1">1. 無痛重啟法 (Low-Pressure Hook)</span><p class="text-slate-700">${res.hook}</p></div>
+                        <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl"><span class="font-bold text-blue-900 block mb-1">2. 開放式好奇心提問 (Curiosity)</span><p class="text-slate-700">${res.curiosity}</p></div>
+                        <div class="bg-purple-50 border border-purple-200 p-4 rounded-2xl"><span class="font-bold text-purple-900 block mb-1">3. 推拉式幽默化解 (Playful Push-Pull)</span><p class="text-slate-700">${res.pushpull}</p></div>
+                    </div>
+                `;
+            } catch (err) { box.innerHTML = `<div class="text-rose-600 text-xs">失敗: ${err.message}</div>`; }
+        }
+
+        // New Feature 2: IG Coach
+        async function generateIGCoachAdvice() {
+            const story = document.getElementById('igStoryDesc').value.trim();
+            const box = document.getElementById('igCoachResult');
+            if (!story) return alert('請填寫 Story 描述！');
+            box.innerHTML = `<div class="text-pink-600 text-xs animate-pulse">Johnnie 正在規劃社群互動...</div>`;
+
+            const prompt = `對方 Story 描述：「${story}」。請提供：1.高情商回覆 Story 話術（絕不當舔狗） 2.引誘對方回覆你的自發發文策略。嚴格輸出 JSON：{"reply":"...","postStrategy":"..."}`;
+
+            try {
+                const reply = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
+                const res = JSON.parse(reply.replace(/```json/g, '').replace(/```/g, '').trim());
+                box.innerHTML = `
+                    <div class="w-full space-y-3 text-xs text-left">
+                        <div class="bg-pink-50 border border-pink-200 p-4 rounded-2xl"><span class="font-bold text-pink-900 block mb-1">💬 高情商 Story 私訊回覆</span><p class="text-slate-700">${res.reply}</p></div>
+                        <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl"><span class="font-bold text-slate-800 block mb-1">📸 你的配對發文誘餌策略</span><p class="text-slate-600">${res.postStrategy}</p></div>
+                    </div>
+                `;
+            } catch (err) { box.innerHTML = `<div class="text-rose-600 text-xs">失敗: ${err.message}</div>`; }
+        }
+
+        // New Feature 3: Cold Recovery
+        async function evaluateColdRecovery() {
+            const cold = document.getElementById('coldLastInteraction').value.trim();
+            const box = document.getElementById('coldRecoveryResult');
+            if (!cold) return alert('請填寫冷淡狀況！');
+            box.innerHTML = `<div class="text-cyan-600 text-xs animate-pulse">正在評估黃金冷卻時間...</div>`;
+
+            const prompt = `冷淡狀況：「${cold}」。請評估：1.建議冷凍天數 2.最佳重啟破冰切入點與第一句話。嚴格輸出 JSON：{"cooldownDays":"3-5天","strategy":"..."}`;
+
+            try {
+                const reply = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
+                const res = JSON.parse(reply.replace(/```json/g, '').replace(/```/g, '').trim());
+                box.innerHTML = `
+                    <div class="w-full space-y-3 text-xs text-left">
+                        <div class="bg-cyan-50 border border-cyan-200 p-4 rounded-2xl flex justify-between items-center"><span class="font-bold text-cyan-900">⏳ 建議黃金冷卻時間</span><span class="font-mono text-lg font-bold text-cyan-700">${res.cooldownDays}</span></div>
+                        <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl"><span class="font-bold text-slate-800 block mb-1">🔓 重啟聯絡切入點與第一句話</span><p class="text-slate-600">${res.strategy}</p></div>
+                    </div>
+                `;
+            } catch (err) { box.innerHTML = `<div class="text-rose-600 text-xs">失敗: ${err.message}</div>`; }
         }
 
         async function generateMultiReplies() {
@@ -857,32 +1045,6 @@
                 });
                 lucide.createIcons();
             } catch (err) { grid.innerHTML = `<div class="col-span-full p-4 bg-rose-50 text-rose-600 text-sm rounded-2xl">失败: ${err.message}</div>`; }
-        }
-
-        async function analyzeChatLog() {
-            const log = document.getElementById('analyzerInputLog').value.trim();
-            const report = document.getElementById('analyzerReport');
-            if (!log) return alert('请贴上对话纪录！');
-            report.innerHTML = `<div class="text-center py-24 text-blue-600 text-sm font-semibold animate-pulse">诊断中...</div>`;
-            const prompt = `深度诊断对话：\n"""\n${log}\n"""\n严格输出 JSON：\n{"score":75.5,"subtext":"...","greenFlags":["..."],"redFlags":["..."],"strategy":"..."}`;
-            try {
-                const resText = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
-                const res = JSON.parse(resText.replace(/```json/g, '').replace(/```/g, '').trim());
-                updateScore(res.score);
-                report.innerHTML = `
-                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl space-y-2">
-                        <div class="flex justify-between items-center text-sm font-bold text-slate-800"><span>诊断评分</span><span class="text-blue-600 font-extrabold text-lg">${res.score.toFixed(1)}%</span></div>
-                        <div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden"><div class="bg-blue-600 h-2.5 rounded-full" style="width: ${res.score}%"></div></div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl space-y-2"><h4 class="text-xs font-bold text-emerald-800">Green Flags</h4><ul class="text-xs text-emerald-700 space-y-1 list-disc list-inside">${res.greenFlags.map(f=>`<li>${f}</li>`).join('')}</ul></div>
-                        <div class="bg-rose-50 border border-rose-200 p-4 rounded-2xl space-y-2"><h4 class="text-xs font-bold text-rose-800">Red Flags</h4><ul class="text-xs text-rose-700 space-y-1 list-disc list-inside">${res.redFlags.map(f=>`<li>${f}</li>`).join('')}</ul></div>
-                    </div>
-                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-1.5"><h4 class="text-xs font-bold text-slate-700">潜台词解读</h4><p class="text-xs text-slate-600 leading-relaxed">${res.subtext}</p></div>
-                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl space-y-1.5"><h4 class="text-xs font-bold text-blue-900">战术指南</h4><p class="text-xs text-blue-800 leading-relaxed">${res.strategy}</p></div>
-                `;
-                lucide.createIcons();
-            } catch (err) { report.innerHTML = `<div class="p-4 bg-rose-50 text-rose-600 text-sm rounded-2xl">失败: ${err.message}</div>`; }
         }
 
         function startDetoxTimer() {
