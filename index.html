@@ -75,13 +75,13 @@
                 <i data-lucide="calendar" class="w-4 h-4 text-indigo-600"></i>
                 <span>跨天对话战情日誌</span>
             </button>
+            <button onclick="switchTab('reply')" id="tab-reply" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
+                <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i>
+                <span>進階氣場話術庫</span>
+            </button>
             <button onclick="switchTab('dailyquest')" id="tab-dailyquest" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
                 <i data-lucide="check-square" class="w-4 h-4 text-emerald-600"></i>
                 <span>每日恋爱任务</span>
-            </button>
-            <button onclick="switchTab('antipua')" id="tab-antipua" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
-                <i data-lucide="shield" class="w-4 h-4 text-purple-600"></i>
-                <span>反向 PUA 护盾</span>
             </button>
             <button onclick="switchTab('icebreaker')" id="tab-icebreaker" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
                 <i data-lucide="zap" class="w-4 h-4 text-amber-500"></i>
@@ -99,10 +99,6 @@
                 <i data-lucide="brain" class="w-4 h-4 text-purple-600"></i>
                 <span>AI 记忆与侧写</span>
             </button>
-            <button onclick="switchTab('reply')" id="tab-reply" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-slate-600 hover:text-blue-600 hover:bg-slate-50">
-                <i data-lucide="sparkles" class="w-4 h-4"></i>
-                <span>气场回复器</span>
-            </button>
             <button onclick="switchTab('detox')" id="tab-detox" class="tab-btn py-2.5 px-3.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition text-rose-600 hover:bg-rose-50 border border-rose-200 ml-auto">
                 <i data-lucide="shield-alert" class="w-4 h-4 text-rose-500"></i>
                 <span class="font-bold">晕船急救站 SOS</span>
@@ -113,26 +109,41 @@
     <!-- Main App Container -->
     <main class="max-w-7xl mx-auto px-6 py-6 flex-1 w-full flex flex-col min-h-0">
 
-        <!-- Tab 1: 沙盘推演 & 顾问 -->
-        <section id="section-simulation" class="tab-content flex-1 grid grid-cols-1 lg:grid-cols-4 gap-6">
-            <div class="lg:col-span-1 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-5 shadow-sm">
-                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center space-x-2">
-                    <i data-lucide="sliders" class="w-4 h-4 text-blue-600"></i>
-                    <span>互动模式与参数</span>
-                </h2>
+        <!-- Tab 1: 沙盘推演 & 顾问 (支援多聊天室切換與建立) -->
+        <section id="section-simulation" class="tab-content flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Left Panel: Chat Sessions & Parameters -->
+            <div class="lg:col-span-4 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
+                
+                <!-- Chat Sessions Manager -->
+                <div class="space-y-3 border-b border-slate-200 pb-4">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center space-x-1.5">
+                            <i data-lucide="message-square" class="w-4 h-4 text-blue-600"></i>
+                            <span>顧問聊天室列表</span>
+                        </h2>
+                        <button onclick="createNewChatSession()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-2.5 py-1 rounded-lg font-semibold transition flex items-center space-x-1">
+                            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                            <span>新聊天</span>
+                        </button>
+                    </div>
+                    <div id="sessionListContainer" class="space-y-1.5 max-h-[160px] overflow-y-auto custom-scrollbar">
+                        <!-- Chat Sessions List rendered dynamically -->
+                    </div>
+                </div>
 
-                <div class="space-y-4 text-sm">
-                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
-                        <label class="block text-slate-700 font-semibold text-xs">当前互动模式</label>
-                        <select id="chatInteractionMode" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-xs text-slate-800 focus:border-blue-600 focus:outline-none font-medium">
+                <!-- Parameters -->
+                <div class="space-y-3 text-xs">
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-1">当前互动模式</label>
+                        <select id="chatInteractionMode" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-xs text-slate-800 focus:border-blue-600 focus:outline-none">
                             <option value="advisor">🧠 純 AI 顧問諮詢（問問題、問意見）</option>
                             <option value="simulate">⚔️ 模擬對象反應（測試發話效果）</option>
                         </select>
                     </div>
 
                     <div>
-                        <label class="block text-slate-700 font-semibold mb-1.5">当前关系阶段</label>
-                        <select id="simStage" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-800 focus:border-blue-600 focus:outline-none">
+                        <label class="block text-slate-700 font-semibold mb-1">当前关系阶段</label>
+                        <select id="simStage" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-xs text-slate-800 focus:border-blue-600 focus:outline-none">
                             <option value="刚认识/冷启动">刚认识 / 冷启动</option>
                             <option value="热络暧昧期">热络暧昧期</option>
                             <option value="对方忽冷忽热/瓶颈期">对方忽冷忽热 / 瓶颈期</option>
@@ -142,8 +153,8 @@
                     </div>
 
                     <div>
-                        <label class="block text-slate-700 font-semibold mb-1.5">对手性格类型</label>
-                        <select id="simPersona" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-800 focus:border-blue-600 focus:outline-none">
+                        <label class="block text-slate-700 font-semibold mb-1">对手性格类型</label>
+                        <select id="simPersona" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-xs text-slate-800 focus:border-blue-600 focus:outline-none">
                             <option value="高冷理性 / 防备心强">高冷理性 / 防备心强</option>
                             <option value="回避型人格 / 怕压力">回避型人格 / 怕压力</option>
                             <option value="热情直率 / 喜欢主动">热情直率 / 喜欢主动</option>
@@ -152,27 +163,19 @@
                     </div>
                 </div>
 
-                <div class="mt-auto pt-4 border-t border-slate-200 flex justify-between items-center text-xs">
+                <div class="mt-auto pt-3 border-t border-slate-200 flex justify-between items-center text-xs">
                     <span class="text-slate-400" id="cloudSyncStatus">云端同步: 未登录</span>
-                    <button onclick="clearCloudAdvisorChat()" class="text-slate-500 hover:text-rose-600 transition flex items-center space-x-1 font-medium">
+                    <button onclick="clearCurrentSessionMessages()" class="text-slate-500 hover:text-rose-600 transition flex items-center space-x-1 font-medium">
                         <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                        <span>清空记录</span>
+                        <span>清空對話</span>
                     </button>
                 </div>
             </div>
 
             <!-- Chat Container -->
-            <div class="lg:col-span-3 bg-white border border-slate-200 rounded-2xl flex flex-col overflow-hidden shadow-sm">
+            <div class="lg:col-span-8 bg-white border border-slate-200 rounded-2xl flex flex-col overflow-hidden shadow-sm">
                 <div id="simChatBox" class="flex-1 p-6 overflow-y-auto space-y-5 custom-scrollbar max-h-[580px]">
-                    <div class="flex items-start space-x-4">
-                        <div class="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center text-white shrink-0 shadow-md">
-                            <i data-lucide="bot" class="w-5 h-5"></i>
-                        </div>
-                        <div class="bg-slate-50 border border-slate-200 rounded-2xl rounded-tl-none p-5 text-sm text-slate-700 leading-relaxed max-w-[85%] space-y-2 shadow-sm">
-                            <p class="font-bold text-blue-600 text-base">欢迎来到 Johnnie Assistant 策略顾问室。</p>
-                            <p>顾问聊天记录已支援<b>云端同步保存</b>！您可以隨時切換模式向我發問或進行沙盤推演。</p>
-                        </div>
-                    </div>
+                    <!-- Chat Messages rendered dynamically -->
                 </div>
 
                 <div class="p-4 border-t border-slate-200 bg-slate-50">
@@ -188,7 +191,7 @@
             </div>
         </section>
 
-        <!-- Tab 2: 好感度战情室 -->
+        <!-- Tab 2: 好感度战情室 (自動即時動態刷新) -->
         <section id="section-scoreroom" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 flex flex-col space-y-6 shadow-sm">
                 <div class="flex items-center space-x-3 border-b border-slate-200 pb-4">
@@ -219,16 +222,14 @@
             </div>
 
             <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-6 flex flex-col shadow-sm">
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">戰情分析與階段建議</h3>
-                <div id="scoreRoomAdvice" class="flex-1 flex flex-col justify-center items-center text-slate-500 text-sm py-16 text-center space-y-3">
-                    <i data-lucide="shield-check" class="w-10 h-10 text-blue-500 mb-2"></i>
-                    <p class="font-bold text-slate-800 text-base">目前關係狀態平穩</p>
-                    <p class="text-xs text-slate-500 max-w-md">當前分數小於 30% 建議採取「低姿態價值鋪陳」；大於 60% 可適時推進實體約會。</p>
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">戰情即時分析與動態建議</h3>
+                <div id="scoreRoomAdvice" class="flex-1 flex flex-col justify-center space-y-4">
+                    <!-- Dynamic Live Advice Rendered Here -->
                 </div>
             </div>
         </section>
 
-        <!-- Tab 3: 跨天對話戰情日誌 (支援新增與刪除功能) -->
+        <!-- Tab 3: 跨天對話戰情日誌 -->
         <section id="section-analyzer" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-4 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
                 <div class="flex items-center justify-between border-b border-slate-200 pb-3">
@@ -276,7 +277,66 @@
             </div>
         </section>
 
-        <!-- Tab 4: 每日戀愛任務 -->
+        <!-- Tab 4: 進階氣場話術庫 (升級版) -->
+        <section id="section-reply" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-5 shadow-sm">
+                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center space-x-2">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i>
+                    <span>戰術目標與氣場調校</span>
+                </h2>
+
+                <div class="space-y-4 text-sm">
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-1.5">對方傳來的訊息：</label>
+                        <textarea id="replyInputMsg" rows="3" placeholder="例如：「最近工作好忙喔...」"
+                                  class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-sm text-slate-800 focus:border-blue-600 focus:outline-none"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-1.5">戰術攻防目標：</label>
+                        <select id="replyTacticalGoal" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs text-slate-800 focus:border-blue-600 focus:outline-none font-medium">
+                            <option value="開場破冰/建立好感">🚀 開場破冰 / 建立高好感度</option>
+                            <option value="反擊推拉/化解考驗">⚔️ 反擊推拉 / 化解對方測試</option>
+                            <option value="溫柔共情/深度連結">❤️ 溫柔共情 / 建立深度心靈連結</option>
+                            <option value="極限拉扯/製造神秘感">🌪️ 極限拉扯 / 製造強烈神秘感</option>
+                        </select>
+                    </div>
+
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-4">
+                        <div>
+                            <div class="flex justify-between items-center text-xs mb-1.5 font-semibold text-slate-700">
+                                <span>氣場：主動引導程度</span>
+                                <span id="valDominance" class="text-blue-600 font-mono">Lv. 3 (中等)</span>
+                            </div>
+                            <input type="range" id="sliderDominance" min="1" max="5" value="3" oninput="updateSliderLabel()" class="w-full accent-blue-600 h-2 bg-slate-200 rounded-lg cursor-pointer">
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center text-xs mb-1.5 font-semibold text-slate-700">
+                                <span>氣場：輕鬆 vs 嚴肅</span>
+                                <span id="valTone" class="text-blue-600 font-mono">Lv. 3 (平衡)</span>
+                            </div>
+                            <input type="range" id="sliderTone" min="1" max="5" value="3" oninput="updateSliderLabel()" class="w-full accent-blue-600 h-2 bg-slate-200 rounded-lg cursor-pointer">
+                        </div>
+                    </div>
+
+                    <button onclick="generateMultiReplies()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3.5 rounded-2xl text-sm font-semibold transition flex items-center justify-center space-x-2 shadow-md shadow-blue-500/20">
+                        <i data-lucide="wand-2" class="w-4 h-4"></i>
+                        <span>生成 8 種進階話術策略</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col shadow-sm">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">生成結果與一鍵推演測試</h3>
+                <div id="replyResultsGrid" class="flex-1 overflow-y-auto custom-scrollbar max-h-[580px] grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="col-span-full text-center py-24 text-slate-400 text-sm">
+                        在左側輸入訊息並設定目標後點擊生成
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 5: 每日戀愛任務 -->
         <section id="section-dailyquest" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
                 <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
@@ -310,39 +370,6 @@
                         <span class="font-bold text-emerald-900 block text-sm">💡 為什麼每日打卡很重要？</span>
                         <p>追求心儀對象最忌諱「情緒失控」與「過度暴露需求感」。每天完成規定的微任務，能強迫自己保持高價值男性/女性的冷靜與節奏感。</p>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tab 5: 反向 PUA 防禦護盾 -->
-        <section id="section-antipua" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-4 shadow-sm">
-                <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
-                    <div class="p-2.5 bg-purple-600 text-white rounded-xl shadow-md">
-                        <i data-lucide="shield" class="w-5 h-5"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-sm font-bold text-slate-900">反向 PUA 与打压防御护盾</h2>
-                        <p class="text-xs text-slate-500">拆解打压、试探与情绪勒索，高价值回击</p>
-                    </div>
-                </div>
-
-                <div class="space-y-3 text-sm">
-                    <div>
-                        <label class="block text-slate-700 font-semibold mb-1">对方传来的打压/试探/怪里怪气的话：</label>
-                        <textarea id="puaMsgInput" rows="4" placeholder="例如：「我觉得你人蛮好的，但好像有点不太成熟耶...」" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-xs text-slate-800 focus:border-purple-600 focus:outline-none"></textarea>
-                    </div>
-                    <button onclick="analyzePUAMsg()" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3.5 rounded-2xl text-xs font-semibold shadow-md transition flex items-center justify-center space-x-2">
-                        <i data-lucide="shield-alert" class="w-4 h-4"></i>
-                        <span>拆解意图并生成高价值防守话术</span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col overflow-y-auto custom-scrollbar max-h-[640px] shadow-sm">
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">防禦反擊戰略報告</h3>
-                <div id="puaResult" class="flex-1 flex flex-col justify-center items-center text-slate-400 text-sm py-24 text-center">
-                    貼上對方可疑或打壓的訊息後點擊拆解
                 </div>
             </div>
         </section>
@@ -491,62 +518,7 @@
             </div>
         </section>
 
-        <!-- Tab 10: 多维度气场回复器 -->
-        <section id="section-reply" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col space-y-5 shadow-sm">
-                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center space-x-2">
-                    <i data-lucide="sparkles" class="w-4 h-4 text-blue-600"></i>
-                    <span>气场与话术风格调校</span>
-                </h2>
-
-                <div class="space-y-4 text-sm">
-                    <div>
-                        <label class="block text-slate-700 font-semibold mb-1.5">对方传来的讯息：</label>
-                        <textarea id="replyInputMsg" rows="3" placeholder="例如：「最近工作好忙喔...」"
-                                  class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-sm text-slate-800 focus:border-blue-600 focus:outline-none"></textarea>
-                    </div>
-
-                    <div>
-                        <label class="block text-slate-700 font-semibold mb-1.5">上下文 / 当前关系目标：</label>
-                        <input type="text" id="replyContextMsg" placeholder="例如：刚认识一週，想约对方週末"
-                               class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-800 focus:border-blue-600 focus:outline-none">
-                    </div>
-
-                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-4">
-                        <div>
-                            <div class="flex justify-between items-center text-xs mb-1.5 font-semibold text-slate-700">
-                                <span>气场：主动引导程度</span>
-                                <span id="valDominance" class="text-blue-600 font-mono">Lv. 3 (中等)</span>
-                            </div>
-                            <input type="range" id="sliderDominance" min="1" max="5" value="3" oninput="updateSliderLabel()" class="w-full accent-blue-600 h-2 bg-slate-200 rounded-lg cursor-pointer">
-                        </div>
-                        <div>
-                            <div class="flex justify-between items-center text-xs mb-1.5 font-semibold text-slate-700">
-                                <span>气场：轻松 vs 严肃</span>
-                                <span id="valTone" class="text-blue-600 font-mono">Lv. 3 (平衡)</span>
-                            </div>
-                            <input type="range" id="sliderTone" min="1" max="5" value="3" oninput="updateSliderLabel()" class="w-full accent-blue-600 h-2 bg-slate-200 rounded-lg cursor-pointer">
-                        </div>
-                    </div>
-
-                    <button onclick="generateMultiReplies()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3.5 rounded-2xl text-sm font-semibold transition flex items-center justify-center space-x-2 shadow-md shadow-blue-500/20">
-                        <i data-lucide="wand-2" class="w-4 h-4"></i>
-                        <span>生成 8 種進階話術策略</span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col shadow-sm">
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">生成結果預覽</h3>
-                <div id="replyResultsGrid" class="flex-1 overflow-y-auto custom-scrollbar max-h-[580px] grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="col-span-full text-center py-24 text-slate-400 text-sm">
-                        在左側輸入訊息並調整氣場後點擊生成
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tab 11: 深夜暈船急救站 SOS -->
+        <!-- Tab 10: 深夜暈船急救站 SOS -->
         <section id="section-detox" class="tab-content hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 bg-rose-50/50 border border-rose-200 rounded-2xl p-5 flex flex-col space-y-5 shadow-sm">
                 <div class="flex items-center space-x-3 border-b border-rose-200 pb-4">
@@ -653,7 +625,7 @@
                 </div>
 
                 <div>
-                    <label class="block text-slate-700 font-semibold mb-1.5">Gemini API Key：</label>
+                    <label class="block text-slate-700 font-semibold mb-1.5">Gemini API Key (將自動同步至雲端帳號)：</label>
                     <input type="password" id="apiKeyInput" placeholder="AIzaSy..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-slate-800 focus:border-blue-600 focus:outline-none">
                 </div>
             </div>
@@ -685,7 +657,13 @@
         let currentScore = 0.0;
         let detoxTimeLeft = 180;
         let memoryTraits = [];
-        let advisorChatHistory = [];
+        
+        // Multi-session Chat Architecture
+        let chatSessions = [
+            { id: 'sess_default', title: '主諮詢室', messages: [] }
+        ];
+        let currentSessionId = 'sess_default';
+
         let dailyLogs = [
             { dayIndex: 1, text: '', reportHtml: '', score: 0 }
         ];
@@ -696,6 +674,7 @@
             lucide.createIcons();
             updateApiKeyUI();
             startDetoxTimer();
+            refreshScoreRoomDisplay();
 
             document.getElementById('modelSelect').addEventListener('change', (e) => {
                 const customBox = document.getElementById('customModelBox');
@@ -721,6 +700,8 @@
                     statusBtn.innerText = "登录 / 注册";
                     syncStatus.innerText = "云端同步: 未登录";
                     logoutSec.classList.add('hidden');
+                    renderSessionList();
+                    renderCurrentSessionMessages();
                     renderLogDaysList();
                 }
             });
@@ -738,6 +719,9 @@
                 activeBtn.classList.add('bg-blue-600', 'text-white', 'shadow-md');
                 activeBtn.classList.remove('text-slate-600', 'hover:text-blue-600', 'hover:bg-slate-50');
             }
+            if (tabName === 'scoreroom') {
+                refreshScoreRoomDisplay();
+            }
         }
 
         function updateSliderLabel() {
@@ -747,18 +731,58 @@
             document.getElementById('valTone').innerText = `Lv. ${tone}`;
         }
 
+        // --- Score Room Auto Live Refresh Mechanism ---
         function updateScore(newScore) {
             currentScore = Math.min(100.0, Math.max(0.0, parseFloat(newScore)));
-            const formatted = currentScore.toFixed(1) + '%';
-            document.getElementById('headerScoreDisplay').innerText = formatted;
-            const bigVal = document.getElementById('bigScoreDisplay');
-            if (bigVal) bigVal.innerText = formatted;
-            const bigBar = document.getElementById('bigScoreBar');
-            if (bigBar) bigBar.style.width = currentScore + '%';
+            refreshScoreRoomDisplay();
 
             if (currentUser) {
                 db.collection('users').doc(currentUser.uid).set({ lastScore: currentScore }, { merge: true });
             }
+        }
+
+        function refreshScoreRoomDisplay() {
+            const formatted = currentScore.toFixed(1) + '%';
+            document.getElementById('headerScoreDisplay').innerText = formatted;
+            
+            const bigVal = document.getElementById('bigScoreDisplay');
+            if (bigVal) bigVal.innerText = formatted;
+            
+            const bigBar = document.getElementById('bigScoreBar');
+            if (bigBar) bigBar.style.width = currentScore + '%';
+
+            const adviceBox = document.getElementById('scoreRoomAdvice');
+            if (!adviceBox) return;
+
+            let stageTitle = '';
+            let stageDesc = '';
+            let alertBg = '';
+
+            if (currentScore < 30) {
+                stageTitle = '🧊 冷淡防備期 (好感度 < 30%)';
+                stageDesc = '建議採取「低姿態價值鋪陳」與「拉長回覆頻率」，切勿急於邀約或曝光強烈需求感！';
+                alertBg = 'bg-cyan-50 border-cyan-200 text-cyan-900';
+            } else if (currentScore <= 60) {
+                stageTitle = '⚖️ 平穩拉鋸/溫昇期 (好感度 30% - 60%)';
+                stageDesc = '關係穩定發展中，可適度運用「推拉話術」與「輕度限時動態互動」提升吸引力。';
+                alertBg = 'bg-blue-50 border-blue-200 text-blue-900';
+            } else {
+                stageTitle = '🔥 熱絡曖昧/衝刺期 (好感度 > 60%)';
+                stageDesc = '對方已展現高度興趣！此時為實體約會邀約的最佳黃金窗口，請保持主導權並準備推進關係。';
+                alertBg = 'bg-emerald-50 border-emerald-200 text-emerald-900';
+            }
+
+            adviceBox.innerHTML = `
+                <div class="${alertBg} border p-5 rounded-2xl space-y-2 shadow-sm">
+                    <span class="font-bold text-sm block">${stageTitle}</span>
+                    <p class="text-xs leading-relaxed opacity-90">${stageDesc}</p>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl text-xs space-y-1 text-slate-600">
+                    <span class="font-bold text-slate-800">💡 戰情指標提示</span>
+                    <p>好感度數值將會隨每一次「單日戰情診斷」或「沙盤推演」實時動態微調。</p>
+                </div>
+            `;
+            lucide.createIcons();
         }
 
         function applyManualScore() {
@@ -791,14 +815,27 @@
 
         async function handleLogout() { await auth.signOut(); closeAuthModal(); }
 
+        // Load User Data & Sync Cloud API Key
         async function loadUserDataFromCloud(uid) {
             try {
                 const doc = await db.collection('users').doc(uid).get();
                 if (doc.exists) {
                     const data = doc.data();
+                    if (data.cloudApiKey) {
+                        apiKey = data.cloudApiKey;
+                        localStorage.setItem('johnnie_api_key', apiKey);
+                        updateApiKeyUI();
+                    }
                     if (data.lastScore !== undefined) updateScore(data.lastScore);
                     if (data.memoryTraits) { memoryTraits = data.memoryTraits; renderMemoryTraits(); }
-                    if (data.advisorChatHistory) { advisorChatHistory = data.advisorChatHistory; renderAdvisorChat(); }
+                    
+                    if (data.chatSessions && data.chatSessions.length > 0) {
+                        chatSessions = data.chatSessions;
+                        currentSessionId = chatSessions[0].id;
+                    }
+                    renderSessionList();
+                    renderCurrentSessionMessages();
+
                     if (data.dailyLogs && data.dailyLogs.length > 0) {
                         dailyLogs = data.dailyLogs;
                         currentDayIndex = dailyLogs[dailyLogs.length - 1].dayIndex;
@@ -821,16 +858,25 @@
             document.getElementById('apiKeyModal').classList.remove('hidden');
         }
         function closeApiKeyModal() { document.getElementById('apiKeyModal').classList.add('hidden'); }
-        function saveApiKey() {
+        
+        // Save API Key locally & bind to Cloud Account
+        async function saveApiKey() {
             apiKey = document.getElementById('apiKeyInput').value.trim();
             const modelSel = document.getElementById('modelSelect').value;
             selectedModel = modelSel === 'custom' ? document.getElementById('customModelInput').value.trim() : modelSel;
+            
             localStorage.setItem('johnnie_api_key', apiKey);
             localStorage.setItem('johnnie_model', selectedModel);
+            
+            if (currentUser) {
+                await db.collection('users').doc(currentUser.uid).set({ cloudApiKey: apiKey }, { merge: true });
+            }
+
             updateApiKeyUI();
             closeApiKeyModal();
-            alert('保存成功！');
+            alert('保存成功！API Key 已同步至雲端帳號。');
         }
+
         function updateApiKeyUI() {
             document.getElementById('keyStatusText').innerText = apiKey ? `已连接 (${selectedModel})` : "模型与 API 設定";
         }
@@ -855,30 +901,83 @@
 
         function clearCloudMemory() { memoryTraits = []; renderMemoryTraits(); alert('已清空！'); }
 
-        function renderAdvisorChat() {
+        // --- Multi-Session Chat Management ---
+        function renderSessionList() {
+            const container = document.getElementById('sessionListContainer');
+            container.innerHTML = chatSessions.map(s => `
+                <div onclick="switchChatSession('${s.id}')" class="p-2 rounded-xl border text-xs cursor-pointer flex justify-between items-center transition ${s.id === currentSessionId ? 'bg-blue-50 border-blue-300 font-bold text-blue-900' : 'bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700'}">
+                    <span class="truncate max-w-[140px]">${s.title}</span>
+                    <button onclick="event.stopPropagation(); deleteChatSession('${s.id}')" class="text-slate-400 hover:text-rose-600 p-0.5" title="刪除此對話室">
+                        <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                    </button>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function switchChatSession(sessId) {
+            currentSessionId = sessId;
+            renderSessionList();
+            renderCurrentSessionMessages();
+        }
+
+        function createNewChatSession() {
+            const newId = 'sess_' + Date.now();
+            const newTitle = `對話 ${chatSessions.length + 1}`;
+            chatSessions.push({ id: newId, title: newTitle, messages: [] });
+            currentSessionId = newId;
+            renderSessionList();
+            renderCurrentSessionMessages();
+            syncChatSessionsToCloud();
+        }
+
+        function deleteChatSession(sessId) {
+            if (chatSessions.length <= 1) return alert('至少需保留一個聊天室！');
+            if (!confirm('確定要刪除此聊天室及其記錄嗎？')) return;
+
+            chatSessions = chatSessions.filter(s => s.id !== sessId);
+            if (currentSessionId === sessId) {
+                currentSessionId = chatSessions[0].id;
+            }
+            renderSessionList();
+            renderCurrentSessionMessages();
+            syncChatSessionsToCloud();
+        }
+
+        function renderCurrentSessionMessages() {
             const box = document.getElementById('simChatBox');
-            if (advisorChatHistory.length === 0) {
+            const sess = chatSessions.find(s => s.id === currentSessionId);
+            
+            if (!sess || sess.messages.length === 0) {
                 box.innerHTML = `
                     <div class="flex items-start space-x-4">
                         <div class="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center text-white shrink-0 shadow-md"><i data-lucide="bot" class="w-5 h-5"></i></div>
                         <div class="bg-slate-50 border border-slate-200 rounded-2xl rounded-tl-none p-5 text-sm text-slate-700 leading-relaxed max-w-[85%] space-y-2 shadow-sm">
                             <p class="font-bold text-blue-600 text-base">欢迎来到 Johnnie Assistant 策略顾问室。</p>
-                            <p>顾问聊天记录已支援<b>云端同步保存</b>！您可以隨時切換模式向我發問或進行沙盤推演。</p>
+                            <p>您可以在左側<b>創建多個獨立聊天室</b>。隨時切換模式向我發問或進行沙盤推演！</p>
                         </div>
                     </div>
                 `;
             } else {
                 box.innerHTML = '';
-                advisorChatHistory.forEach(item => { appendSimMsgRaw(item.role, item.text); });
+                sess.messages.forEach(msg => { appendSimMsgRaw(msg.role, msg.text); });
             }
             lucide.createIcons();
         }
 
-        function clearCloudAdvisorChat() {
-            advisorChatHistory = [];
-            renderAdvisorChat();
-            if (currentUser) db.collection('users').doc(currentUser.uid).set({ advisorChatHistory: [] }, { merge: true });
-            alert('顾问聊天记录已清空！');
+        function clearCurrentSessionMessages() {
+            const sess = chatSessions.find(s => s.id === currentSessionId);
+            if (sess) {
+                sess.messages = [];
+                renderCurrentSessionMessages();
+                syncChatSessionsToCloud();
+            }
+        }
+
+        function syncChatSessionsToCloud() {
+            if (currentUser) {
+                db.collection('users').doc(currentUser.uid).set({ chatSessions: chatSessions }, { merge: true });
+            }
         }
 
         async function handleSimSubmit(e) {
@@ -891,8 +990,14 @@
             const stage = document.getElementById('simStage').value;
             const persona = document.getElementById('simPersona').value;
 
+            const sess = chatSessions.find(s => s.id === currentSessionId);
+            if (sess && sess.messages.length === 0) {
+                sess.title = txt.length > 10 ? txt.substring(0, 10) + '...' : txt;
+                renderSessionList();
+            }
+
             appendSimMsg('user', txt);
-            advisorChatHistory.push({ role: 'user', text: txt });
+            if (sess) sess.messages.push({ role: 'user', text: txt });
             input.value = '';
 
             let prompt = '';
@@ -922,8 +1027,8 @@
                 }
 
                 appendSimMsg('model', finalHtml);
-                advisorChatHistory.push({ role: 'model', text: finalHtml });
-                if (currentUser) db.collection('users').doc(currentUser.uid).set({ advisorChatHistory: advisorChatHistory }, { merge: true });
+                if (sess) sess.messages.push({ role: 'model', text: finalHtml });
+                syncChatSessionsToCloud();
 
             } catch (err) {
                 removeLoading(loadId);
@@ -945,7 +1050,7 @@
             lucide.createIcons();
         }
 
-        // --- Daily Logs Functions (With Delete Mechanism) ---
+        // --- Daily Logs Functions ---
         function renderLogDaysList() {
             const container = document.getElementById('logDaysList');
             if (!dailyLogs || dailyLogs.length === 0) {
@@ -987,24 +1092,13 @@
             syncLogsToCloud();
         }
 
-        function deleteCurrentDayLog() {
-            deleteLogDayByIndex(currentDayIndex);
-        }
+        function deleteCurrentDayLog() { deleteLogDayByIndex(currentDayIndex); }
 
         function deleteLogDayByIndex(dayIdx) {
-            if (!confirm(`確定要刪除 Day ${dayIdx} 的戰情日誌嗎？刪除後無法復原。`)) return;
-
+            if (!confirm(`確定要刪除 Day ${dayIdx} 的戰情日誌嗎？`)) return;
             dailyLogs = dailyLogs.filter(d => d.dayIndex !== dayIdx);
-            
-            // Re-index remaining days to maintain continuous 1, 2, 3...
-            dailyLogs.forEach((item, index) => {
-                item.dayIndex = index + 1;
-            });
-
-            if (dailyLogs.length === 0) {
-                dailyLogs = [{ dayIndex: 1, text: '', reportHtml: '', score: 0 }];
-            }
-
+            dailyLogs.forEach((item, index) => { item.dayIndex = index + 1; });
+            if (dailyLogs.length === 0) { dailyLogs = [{ dayIndex: 1, text: '', reportHtml: '', score: 0 }]; }
             currentDayIndex = Math.min(currentDayIndex, dailyLogs.length);
             renderLogDaysList();
             loadDayLog(currentDayIndex);
@@ -1088,18 +1182,60 @@
             }
         }
 
+        // --- Upgraded Reply Generator ---
+        async function generateMultiReplies() {
+            const incoming = document.getElementById('replyInputMsg').value.trim();
+            const goal = document.getElementById('replyTacticalGoal').value;
+            const dom = document.getElementById('sliderDominance').value;
+            const tone = document.getElementById('sliderTone').value;
+            const grid = document.getElementById('replyResultsGrid');
+            if (!incoming) return alert('请先输入对方讯息！');
+
+            grid.innerHTML = `<div class="col-span-full text-center py-24 text-blue-600 text-sm font-semibold animate-pulse">Johnnie 正在生成進階話術策略...</div>`;
+            const prompt = `對方訊息：「${incoming}」\n戰術目標：${goal}\n主導度：${dom}/5，輕鬆度：${tone}/5。\n請生成 8 種不同風格話術，嚴格 JSON 陣列格式，無 markdown：\n[{"style":"幽默風趣","reply":"..."}]`;
+            try {
+                const resText = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
+                const list = JSON.parse(resText.replace(/```json/g, '').replace(/```/g, '').trim());
+                grid.innerHTML = '';
+                list.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = "bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-2.5 shadow-sm flex flex-col justify-between";
+                    card.innerHTML = `
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold text-blue-700 bg-blue-100 px-2.5 py-1 rounded-lg">${item.style}</span>
+                                <div class="flex space-x-2">
+                                    <button onclick="testInSimulation('${escapeJs(item.reply)}')" class="text-xs text-indigo-600 hover:underline font-semibold">推演測試</button>
+                                    <button onclick="copyTxt('${escapeJs(item.reply)}', this)" class="text-xs text-slate-500 hover:text-blue-600">複製</button>
+                                </div>
+                            </div>
+                            <p class="text-sm text-slate-800 leading-relaxed">${item.reply}</p>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+                lucide.createIcons();
+            } catch (err) { grid.innerHTML = `<div class="col-span-full p-4 bg-rose-50 text-rose-600 text-sm rounded-2xl">失敗: ${err.message}</div>`; }
+        }
+
+        function testInSimulation(replyTxt) {
+            switchTab('simulation');
+            document.getElementById('simInput').value = replyTxt;
+            document.getElementById('chatInteractionMode').value = 'simulate';
+            alert('已將話術帶入沙盤推演，點擊發送即可測試對方反應！');
+        }
+
         // Feature: Daily Quests
         async function generateDailyQuests() {
             const box = document.getElementById('questsContainer');
             box.innerHTML = `<div class="text-emerald-600 text-xs font-semibold animate-pulse py-8 text-center">Johnnie 正在根據當前戰情生成今日任務...</div>`;
 
-            const prompt = `目前好感度：${currentScore}%。已掌握對方特徵：${JSON.stringify(memoryTraits)}。
-請生成 3 個今日高價值心態與行為微任務，協助用戶維持主導權與吸引力。
-嚴格輸出 JSON 陣列格式，無 markdown：
+            const prompt = `目前好感度：${currentScore}%。已知對方特徵：${JSON.stringify(memoryTraits)}。
+請生成 3 個今日高價值心態與行為微任務。嚴格輸出 JSON 陣列格式，無 markdown：
 [
-  {"id": 1, "title": "任務名稱...", "desc": "任務具體行動指南...", "done": false},
-  {"id": 2, "title": "任務名稱...", "desc": "任務具體行動指南...", "done": false},
-  {"id": 3, "title": "任務名稱...", "desc": "任務具體行動指南...", "done": false}
+  {"id": 1, "title": "任務名稱...", "desc": "任務具體指南...", "done": false},
+  {"id": 2, "title": "任務名稱...", "desc": "任務具體指南...", "done": false},
+  {"id": 3, "title": "任務名稱...", "desc": "任務具體指南...", "done": false}
 ]`;
 
             try {
@@ -1137,53 +1273,6 @@
                 q.done = !q.done;
                 renderDailyQuests();
                 if (currentUser) db.collection('users').doc(currentUser.uid).set({ dailyQuestsList: dailyQuestsList }, { merge: true });
-            }
-        }
-
-        // Feature: Anti-PUA Shield
-        async function analyzePUAMsg() {
-            const msg = document.getElementById('puaMsgInput').value.trim();
-            const box = document.getElementById('puaResult');
-            if (!msg) return alert('請先輸入可疑或打壓訊息！');
-
-            box.innerHTML = `<div class="text-purple-600 text-xs font-semibold animate-pulse py-20 text-center">Johnnie 正在拆解對方的打壓潛台詞...</div>`;
-
-            const prompt = `對方傳來的可能打壓/試探/情緒勒索訊息：「${msg}」。
-請拆解：
-1. 對方的真實潛台詞與心理動機
-2. 提供 3 種反擊方案（A.幽默化解 B.高價值邊界反擊 C.冷淡拉開距離）。嚴格輸出 JSON 格式：
-{"intent":"...","optionA":"...","optionB":"...","optionC":"..."}`;
-
-            try {
-                const reply = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
-                const res = JSON.parse(reply.replace(/```json/g, '').replace(/```/g, '').trim());
-
-                box.innerHTML = `
-                    <div class="w-full space-y-3 text-xs text-left">
-                        <div class="bg-purple-50 border border-purple-200 p-4 rounded-2xl space-y-1">
-                            <span class="font-bold text-purple-900 block text-xs flex items-center space-x-1">
-                                <i data-lucide="eye" class="w-4 h-4 text-purple-600"></i>
-                                <span>🎯 對方真實心理動機剖析</span>
-                            </span>
-                            <p class="text-slate-700 leading-relaxed">${res.intent}</p>
-                        </div>
-                        <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-1">
-                            <span class="font-bold text-slate-800 block text-xs">方案 A：四兩撥千斤 / 幽默化解</span>
-                            <p class="text-slate-600">${res.optionA}</p>
-                        </div>
-                        <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl space-y-1">
-                            <span class="font-bold text-blue-900 block text-xs">方案 B：高價值邊界反擊（維護尊嚴）</span>
-                            <p class="text-blue-800">${res.optionB}</p>
-                        </div>
-                        <div class="bg-rose-50 border border-rose-200 p-4 rounded-2xl space-y-1">
-                            <span class="font-bold text-rose-900 block text-xs">方案 C：冷淡拉開距離（降溫策略）</span>
-                            <p class="text-rose-800">${res.optionC}</p>
-                        </div>
-                    </div>
-                `;
-                lucide.createIcons();
-            } catch (err) {
-                box.innerHTML = `<div class="p-4 bg-rose-50 text-rose-600 text-xs rounded-2xl">拆解失敗: ${err.message}</div>`;
             }
         }
 
@@ -1250,29 +1339,6 @@
                     </div>
                 `;
             } catch (err) { box.innerHTML = `<div class="text-rose-600 text-xs">失敗: ${err.message}</div>`; }
-        }
-
-        async function generateMultiReplies() {
-            const incoming = document.getElementById('replyInputMsg').value.trim();
-            const context = document.getElementById('replyContextMsg').value.trim();
-            const dom = document.getElementById('sliderDominance').value;
-            const tone = document.getElementById('sliderTone').value;
-            const grid = document.getElementById('replyResultsGrid');
-            if (!incoming) return alert('请先输入讯息！');
-            grid.innerHTML = `<div class="col-span-full text-center py-24 text-blue-600 text-sm font-semibold animate-pulse">Johnnie 正在生成...</div>`;
-            const prompt = `对方讯息：「${incoming}」\n背景：「${context || '无'}」\n主导度：${dom}/5，轻松度：${tone}/5。\n生成 8 种风格话术，严格 JSON 数组格式，无 markdown：\n[{"style":"幽默风趣","reply":"..."}]`;
-            try {
-                const resText = await callGemini({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
-                const list = JSON.parse(resText.replace(/```json/g, '').replace(/```/g, '').trim());
-                grid.innerHTML = '';
-                list.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = "bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-2.5 shadow-sm flex flex-col justify-between";
-                    card.innerHTML = `<div><div class="flex items-center justify-between mb-2"><span class="text-xs font-bold text-blue-700 bg-blue-100 px-2.5 py-1 rounded-lg">${item.style}</span><button onclick="copyTxt('${escapeJs(item.reply)}', this)" class="text-xs text-slate-500 hover:text-blue-600">复制</button></div><p class="text-sm text-slate-800 leading-relaxed">${item.reply}</p></div>`;
-                    grid.appendChild(card);
-                });
-                lucide.createIcons();
-            } catch (err) { grid.innerHTML = `<div class="col-span-full p-4 bg-rose-50 text-rose-600 text-sm rounded-2xl">失败: ${err.message}</div>`; }
         }
 
         function startDetoxTimer() {
